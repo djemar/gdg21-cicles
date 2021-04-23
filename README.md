@@ -19,4 +19,5 @@ Authors: Giovanni Blangiardi, Enrico D'Oro, Diego Marino, Simone Restivo, Nicola
 Large binary files such as models are tracked with Git Large File Storage (LFS) (for more info see [link 1](https://git-lfs.github.com/), [link 2](https://docs.github.com/en/github/managing-large-files/versioning-large-files), [link 3](https://thoughtbot.com/blog/how-to-git-with-unity)).
 
 - Follow the instructions at link 1 or link 2 above to install and initialize Git LFS;
+- Or, if you are using Fork Git client, you can click on `Repository > Git LFS > Initialize Git LFS`;
 - Git LFS files are tracked by the `.gitattributes` file.
