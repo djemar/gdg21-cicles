@@ -140,7 +140,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 73c47af7fd1f5f748a77d3be63d68681, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.2319307
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 73c47af7fd1f5f748a77d3be63d68681, type: 3}
       propertyPath: m_LocalPosition.z
@@ -176,7 +176,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 73c47af7fd1f5f748a77d3be63d68681, type: 3}
       propertyPath: m_Name
-      value: Ch46_nonPBR
+      value: Amy
       objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: 73c47af7fd1f5f748a77d3be63d68681, type: 3}
       propertyPath: m_Enabled
@@ -282,7 +282,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 193583436}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.272, y: 2.79, z: -10.92}
+  m_LocalPosition: {x: -7.272, y: 0.4, z: -10.92}
   m_LocalScale: {x: 1.6391205, y: 0.8643529, z: 1.6457}
   m_Children: []
   m_Father: {fileID: 0}
@@ -316,6 +316,7 @@ GameObject:
   - component: {fileID: 468505990}
   - component: {fileID: 468505989}
   - component: {fileID: 468505988}
+  - component: {fileID: 468505987}
   m_Layer: 6
   m_Name: Ground
   m_TagString: Untagged
@@ -323,6 +324,19 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!65 &468505987
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 468505986}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 0
+  serializedVersion: 2
+  m_Size: {x: 10, y: 2.220446e-16, z: 10}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!64 &468505988
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -394,7 +408,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 468505986}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.7289023, y: 2.2319307, z: 0}
+  m_LocalPosition: {x: -6.7289023, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 3.4711}
   m_Children: []
   m_Father: {fileID: 0}
@@ -724,7 +738,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1342076033}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.33, y: 4.84, z: -1.68}
+  m_LocalPosition: {x: -7.33, y: 2.39, z: -1.68}
   m_LocalScale: {x: -2.9918, y: 0.33433, z: 4.397182}
   m_Children: []
   m_Father: {fileID: 0}
@@ -815,7 +829,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1425724547}
   m_LocalRotation: {x: 0.15304591, y: -0.6903456, z: 0.15304591, w: 0.6903456}
-  m_LocalPosition: {x: 7, y: 8.40803, z: -13.364696}
+  m_LocalPosition: {x: 7, y: 6.176099, z: -13.364696}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1223479205}
@@ -1393,7 +1407,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1856257648}
   m_LocalRotation: {x: 0.15304591, y: -0.6903456, z: 0.15304591, w: 0.6903456}
-  m_LocalPosition: {x: 7, y: 8.40803, z: -13.364696}
+  m_LocalPosition: {x: 7, y: 6.176099, z: -13.364696}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1596,7 +1610,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1934327999}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.33, y: 3.89, z: -7.07}
+  m_LocalPosition: {x: -7.33, y: 1.57, z: -7.07}
   m_LocalScale: {x: -2.9918, y: 0.33433, z: 4.397182}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1750,7 +1764,9 @@ MonoBehaviour:
   walkSpeed: 0.5
   runSpeed: 1
   isGrounded: 0
+  isFalling: 0
   groundCheckDistance: 0.08
+  checkDistance: 1.4
   groundMask:
     serializedVersion: 2
     m_Bits: 64
@@ -1781,3 +1797,81 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 73c47af7fd1f5f748a77d3be63d68681, type: 3}
   m_PrefabInstance: {fileID: 156912398}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2032222541
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2032222536}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: e08b41d719aa8c24b818ea4328a809ec, type: 3}
+  m_NotificationBehavior: 2
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2032222537}
+        m_TargetAssemblyTypeName: PlayerMovement, Assembly-CSharp
+        m_MethodName: OnJump
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: e8b4a5f6-805a-4f76-9799-dac77d1558c7
+    m_ActionName: Player/Jump[/Keyboard/space,/XInputControllerWindows/buttonSouth]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2032222537}
+        m_TargetAssemblyTypeName: PlayerMovement, Assembly-CSharp
+        m_MethodName: OnMove
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 9585f750-0945-4068-b3fb-d2dffc5cd784
+    m_ActionName: Player/Move[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d,/XInputControllerWindows/leftStick/up,/XInputControllerWindows/leftStick/down,/XInputControllerWindows/leftStick/left,/XInputControllerWindows/leftStick/right,/XInputControllerWindows/dpad/up,/XInputControllerWindows/dpad/down,/XInputControllerWindows/dpad/left,/XInputControllerWindows/dpad/right]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2032222537}
+        m_TargetAssemblyTypeName: PlayerMovement, Assembly-CSharp
+        m_MethodName: OnRun
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: a7cc77b7-24b9-4d3a-aa9b-352a97461d97
+    m_ActionName: Player/Run[/Keyboard/leftShift]
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: ControlScheme
+  m_DefaultActionMap: Player
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
