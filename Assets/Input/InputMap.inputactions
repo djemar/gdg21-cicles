@@ -28,6 +28,14 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "Action",
+                    "type": "Button",
+                    "id": "f45dafda-56ba-4a4d-a863-2f10e7905a4e",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -237,6 +245,28 @@
                     "processors": "",
                     "groups": "ControlScheme",
                     "action": "Run",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8882acf0-f738-4632-9e52-8df06c42baa7",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "ControlScheme",
+                    "action": "Action",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2f92b1d7-2c8e-49c2-81a8-2dcb1fdd7130",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "ControlScheme",
+                    "action": "Action",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
