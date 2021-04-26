@@ -18,6 +18,7 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] private bool isGrounded;
     [SerializeField] private bool isFalling;
+    [SerializeField] private bool isFlying = false;
     [SerializeField] private float groundCheckDistance; // check character skinWidth
     [SerializeField] private float checkDistance; // check character skinWidth
     [SerializeField] private LayerMask groundMask;
@@ -35,21 +36,64 @@ public class PlayerMovement : MonoBehaviour
 
     private bool isJumping = false;
     private bool isRunning = false;
+    public float fallingThreshold = 1f;
+    public float maxFallingThreshold = 20f;
+    private float initialDistance = 0f;
+    private RaycastHit hit;
 
     void Start()
     {
         controller = GetComponent<CharacterController>();
         animator = GetComponentInChildren<Animator>();
+        var dist = 0f;
+        GetHitDistance(out dist);
+        initialDistance = dist;
+    }
+    bool GetHitDistance(out float distance)
+    {
+        distance = 0f;
+        Ray downRay = new Ray(transform.position, -Vector3.up); // this is the downward ray
+        if (Physics.Raycast(downRay, out hit))
+        {
+            distance = hit.distance;
+            return true;
+        }
+        return false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        //Move();
+        //Move();         
+
     }
 
     void FixedUpdate()
     {
+        var dist = 0f;
+        if (GetHitDistance(out dist))
+        {
+            if (initialDistance < dist)
+            {
+                //Get relative distance
+                var relDistance = dist - initialDistance;
+                //Are we actually falling?
+                if (relDistance > fallingThreshold)
+                {
+                    //How far are we falling
+                    if (relDistance > maxFallingThreshold)
+                    {
+                        Debug.Log("Fell off a cliff");
+                        isFalling = true;
+                    }
+                    else Debug.Log("basic falling!");
+                }
+            }
+        }
+        else
+        {
+            Debug.Log("Infinite Fall");
+        }
         if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Falling To Landing"))
             Move();
     }
@@ -57,19 +101,20 @@ public class PlayerMovement : MonoBehaviour
     private void Move()
     {
         isGrounded = Physics.CheckSphere(transform.position, groundCheckDistance, groundMask);
-        isFalling = Physics.CheckSphere(transform.position, checkDistance, groundMask);
+        //isFalling = !(Physics.CheckSphere(transform.position, checkDistance, groundMask));
 
         if (isGrounded && velocity.y < 0)    // stop applying gravity if grounded
         {
             velocity.y = -2f; // small neg value should work better than zero
-            fell = false;
-
         }
 
-        if (!isFalling && !isGrounded && !fell)
+        if (isFalling && velocity.y < 0)
         {
-            animator.SetTrigger("Fall");
-            fell = true;
+            if (isGrounded)
+            {
+                animator.SetTrigger("Fall");
+                isFalling = false;
+            }
         }
 
 
@@ -93,6 +138,7 @@ public class PlayerMovement : MonoBehaviour
             else
             {
                 Idle();
+
             }
             if (isJumping)    // jump only if grounded (but we will have double jump, so...)
             {
@@ -101,7 +147,9 @@ public class PlayerMovement : MonoBehaviour
                 Jump();
                 isJumping = false;
             }
+
         }
+
         direction *= moveSpeed;
 
         controller.Move(direction * Time.deltaTime);
