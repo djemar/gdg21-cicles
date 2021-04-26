@@ -250,7 +250,7 @@
             "devices": [
                 {
                     "devicePath": "<XInputController>",
-                    "isOptional": false,
+                    "isOptional": true,
                     "isOR": false
                 },
                 {
