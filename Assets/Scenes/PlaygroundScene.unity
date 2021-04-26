@@ -1773,7 +1773,8 @@ MonoBehaviour:
   gravity: -9.81
   jumpHeight: 1
   turnSmoothTime: 0.1
-  turnSmoothVelocity: 0
+  turnSmoothVelocity: 5
+  fallingThreshold: 1
 --- !u!143 &2032222538
 CharacterController:
   m_ObjectHideFlags: 0
@@ -1870,6 +1871,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: a7cc77b7-24b9-4d3a-aa9b-352a97461d97
     m_ActionName: Player/Run[/Keyboard/leftShift]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2032222537}
+        m_TargetAssemblyTypeName: PlayerMovement, Assembly-CSharp
+        m_MethodName: OnFly
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: f45dafda-56ba-4a4d-a863-2f10e7905a4e
+    m_ActionName: Player/New action
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: ControlScheme
   m_DefaultActionMap: Player
