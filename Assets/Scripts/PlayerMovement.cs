@@ -156,9 +156,14 @@ public class PlayerMovement : MonoBehaviour
 
         if (isFlying)
         {
+            //gravity = 1f;
             Fly();
         }
-        else velocity.y += gravity * Time.deltaTime; //calculate gravity
+        else
+        {
+            //gravity = -9.81f;
+            velocity.y += gravity * Time.deltaTime; //calculate gravity
+        } 
 
         controller.Move(velocity * Time.deltaTime); //apply gravity
     }
@@ -217,7 +222,7 @@ public class PlayerMovement : MonoBehaviour
     }
     public void OnFly(InputAction.CallbackContext value)
     {
-        if (value.performed && direction.magnitude < 0.1f) isFlying = true;
+        if (value.performed && direction.magnitude == 0f) isFlying = true;
         if (value.canceled) isFlying = false;
     }
 
