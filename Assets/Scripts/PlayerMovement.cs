@@ -106,7 +106,12 @@ public class PlayerMovement : MonoBehaviour
 
         controller.Move(direction * Time.deltaTime);
 
-        velocity.y += gravity * Time.deltaTime; //calculate gravity
+        if (isFlying)
+        {
+            Fly();
+        }
+        else velocity.y += gravity * Time.deltaTime; //calculate gravity
+
         controller.Move(velocity * Time.deltaTime); //apply gravity
     }
 
@@ -130,6 +135,11 @@ public class PlayerMovement : MonoBehaviour
         animator.SetTrigger("Jump");
         velocity.y = Mathf.Sqrt(jumpHeight * -2.0f * gravity);
     }
+    private void Fly()
+    {
+        //animator.SetTrigger("Jump");
+        velocity.y = 4f;
+    }
 
     private void TargetRotation()
     {
@@ -152,11 +162,15 @@ public class PlayerMovement : MonoBehaviour
         }
 
     }
-
     public void OnRun(InputAction.CallbackContext value)
     {
         if (value.started) isRunning = true;
         if (value.canceled) isRunning = false;
+    }
+    public void OnFly(InputAction.CallbackContext value)
+    {
+        if (value.performed && direction.magnitude < 0.1f) isFlying = true;
+        if (value.canceled) isFlying = false;
     }
 
 
