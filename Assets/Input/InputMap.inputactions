@@ -309,13 +309,18 @@
             "bindingGroup": "ControlScheme",
             "devices": [
                 {
+                    "devicePath": "<Keyboard>",
+                    "isOptional": false,
+                    "isOR": false
+                },
+                {
                     "devicePath": "<XInputController>",
                     "isOptional": true,
                     "isOR": false
                 },
                 {
-                    "devicePath": "<Keyboard>",
-                    "isOptional": false,
+                    "devicePath": "<SwitchProControllerHID>",
+                    "isOptional": true,
                     "isOR": false
                 }
             ]
