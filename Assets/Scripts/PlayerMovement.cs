@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -27,7 +28,7 @@ public class PlayerMovement : MonoBehaviour
     //public float speed = 1f;
     public float turnSmoothTime = 0.1f;
     public float turnSmoothVelocity;
-    bool fell = false;
+    //bool fell = false;
 
 
     private Vector3 direction;
@@ -36,6 +37,7 @@ public class PlayerMovement : MonoBehaviour
 
     private bool isJumping = false;
     private bool isRunning = false;
+    private bool isTaunting = false;
     public float fallingThreshold = 1f;
     public float maxFallingThreshold = 20f;
     private float initialDistance = 0f;
@@ -83,16 +85,16 @@ public class PlayerMovement : MonoBehaviour
                     //How far are we falling
                     if (relDistance > maxFallingThreshold)
                     {
-                        Debug.Log("Fell off a cliff");
+                        UnityEngine.Debug.Log("Fell off a cliff");
                         isFalling = true;
                     }
-                    else Debug.Log("basic falling!");
+                    else UnityEngine.Debug.Log("basic falling!");
                 }
             }
         }
         else
         {
-            Debug.Log("Infinite Fall");
+            UnityEngine.Debug.Log("Infinite Fall");
         }
         if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Falling To Landing"))
             Move();
@@ -154,6 +156,12 @@ public class PlayerMovement : MonoBehaviour
 
         controller.Move(direction * Time.deltaTime);
 
+        if (isTaunting)
+        {
+            Taunt();
+            isTaunting = false;
+        }
+
         if (isFlying)
         {
             Fly();
@@ -189,6 +197,11 @@ public class PlayerMovement : MonoBehaviour
         velocity.y = 4f;
     }
 
+    private void Taunt()
+    {
+        animator.SetTrigger("Taunt");
+    }
+
     private void TargetRotation()
     {
         /* player facing movement direction */
@@ -200,7 +213,6 @@ public class PlayerMovement : MonoBehaviour
     public void OnMove(InputAction.CallbackContext value)
     {
         inputVector = value.ReadValue<Vector2>();
-
     }
     public void OnJump(InputAction.CallbackContext value)
     {
@@ -219,6 +231,12 @@ public class PlayerMovement : MonoBehaviour
     {
         if (value.performed && direction.magnitude < 0.1f) isFlying = true;
         if (value.canceled) isFlying = false;
+    }
+
+    public void OnTaunt(InputAction.CallbackContext value)
+    {
+        UnityEngine.Debug.Log("Taunted");
+        isTaunting = true;
     }
 
 
