@@ -193,7 +193,7 @@
                 {
                     "name": "up",
                     "id": "0ca9c95d-2135-4fa6-9f56-48e4b18fa58b",
-                    "path": "<XInputController>/dpad/up",
+                    "path": "<Gamepad>/dpad/up",
                     "interactions": "",
                     "processors": "",
                     "groups": "PlayerControlScheme",
@@ -204,7 +204,7 @@
                 {
                     "name": "down",
                     "id": "cfb34c98-0044-4da5-9fad-c4a43b016fea",
-                    "path": "<XInputController>/dpad/down",
+                    "path": "<Gamepad>/dpad/down",
                     "interactions": "",
                     "processors": "",
                     "groups": "PlayerControlScheme",
@@ -215,7 +215,7 @@
                 {
                     "name": "left",
                     "id": "4d88fe5e-e5ef-413d-9fbc-3ef8a2e91529",
-                    "path": "<XInputController>/dpad/left",
+                    "path": "<Gamepad>/dpad/left",
                     "interactions": "",
                     "processors": "",
                     "groups": "PlayerControlScheme",
@@ -226,7 +226,7 @@
                 {
                     "name": "right",
                     "id": "ccf09e89-18c4-446a-9e5b-cb641453e5e5",
-                    "path": "<XInputController>/dpad/right",
+                    "path": "<Gamepad>/dpad/right",
                     "interactions": "",
                     "processors": "",
                     "groups": "PlayerControlScheme",
@@ -316,6 +316,11 @@
                 {
                     "devicePath": "<Keyboard>",
                     "isOptional": false,
+                    "isOR": false
+                },
+                {
+                    "devicePath": "<Gamepad>",
+                    "isOptional": true,
                     "isOR": false
                 }
             ]
