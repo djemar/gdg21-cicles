@@ -179,6 +179,7 @@ public class PlayerMovement : MonoBehaviour
     {
         animator.SetFloat("Speed", 0.5f, 0.1f, Time.deltaTime);
         moveSpeed = walkSpeed;
+        
     }
     private void Run()
     {
@@ -219,6 +220,7 @@ public class PlayerMovement : MonoBehaviour
         if (value.started && isGrounded)
         {
             isJumping = true;
+            FindObjectOfType<AudioManager>().Play("PlayerJump");
         }
 
     }
