@@ -30,7 +30,6 @@ public class PlayerMovement : MonoBehaviour
     public float turnSmoothVelocity;
     //bool fell = false;
 
-
     private Vector3 direction;
     private Vector2 inputVector;
     private Vector3 velocity;
@@ -129,7 +128,6 @@ public class PlayerMovement : MonoBehaviour
                 /* player facing movement direction */
                 TargetRotation();
                 Walk();
-
             }
             else if (direction.magnitude >= 0.1f && isRunning)
             {
@@ -140,7 +138,6 @@ public class PlayerMovement : MonoBehaviour
             else
             {
                 Idle();
-
             }
             if (isJumping)    // jump only if grounded (but we will have double jump, so...)
             {
@@ -220,7 +217,6 @@ public class PlayerMovement : MonoBehaviour
         if (value.started && isGrounded)
         {
             isJumping = true;
-            FindObjectOfType<AudioManager>().Play("PlayerJump");
         }
 
     }
