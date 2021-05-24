@@ -84,8 +84,8 @@ public class PlayerMovement : MonoBehaviour
         if (collision.CompareTag("PowerUp"))
         {
             Destroy(collision.gameObject);
+            FindObjectOfType<AudioManager>().Play("PowerUp");
             //TODO trigger some event: unlock new weapon, glide, double jump, ...
-
         }
     }
 
