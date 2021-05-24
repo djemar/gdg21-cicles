@@ -74,6 +74,16 @@ public class PlayerMovement : MonoBehaviour
 
     }
 
+    private void OnTriggerEnter(Collider collision)
+    {
+        if (collision.CompareTag("PowerUp"))
+        {
+            Destroy(collision.gameObject);
+            //TODO trigger some event: unlock new weapon, glide, double jump, ...
+
+        }
+    }
+
     void FixedUpdate()
     {
         var dist = 0f;
