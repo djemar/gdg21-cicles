@@ -1,7 +1,7 @@
 using UnityEngine;
 using System;
 
-public class PlayerMovementAudio : MonoBehaviour
+public class PlayerAudio : MonoBehaviour
 {
     private AudioManager audioManager;
 
@@ -12,12 +12,12 @@ public class PlayerMovementAudio : MonoBehaviour
 
     private void StepL()
     {
-        audioManager.Play("PlayerStepL");
+        //audioManager.Play("PlayerStepL");
     }
 
     private void StepR()
     {
-        audioManager.Play("PlayerStepR");
+        //audioManager.Play("PlayerStepR");
     }
 
     private void JumpAudio()
@@ -44,3 +44,4 @@ public class PlayerMovementAudio : MonoBehaviour
         // audioManager.Play("InflateGum");
     }
 }
+
