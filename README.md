@@ -5,9 +5,13 @@ Authors: Giovanni Blangiardi, Enrico D'Oro, Diego Marino, Simone Restivo, Nicola
 <img alt="Unity" src="https://img.shields.io/badge/unity%20-%23000000.svg?&style=for-the-badge&logo=unity&logoColor=white"/>
 <img alt="Blender" src="https://img.shields.io/badge/blender%20-%23F5792A.svg?&style=for-the-badge&logo=blender&logoColor=white"/>
 
+## Teaser trailer
+
+[![Cicles Teaser Trailer](https://yt-embed.herokuapp.com/embed?v=MNnBgbInPsE)](https://www.youtube.com/watch?v=MNnBgbInPsE)
+
 ## TODO
 
-- [ ] Teaser trailer (**deadline: 19-05-2021**)
+- [ ] Modify teaser trailer according to notes
 
 ## Docs
 
