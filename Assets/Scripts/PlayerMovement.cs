@@ -9,6 +9,7 @@ public class PlayerMovement : MonoBehaviour
 {
     // References
     public CharacterController controller;
+
     private Animator animator;
 
     // Variables
@@ -35,17 +36,22 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float turnSmoothVelocity;
     //bool fell = false;
 
+    //bool fell = false;
     private Vector3 direction;
     private bool isTaunting = false;
     private Vector2 inputVector;
 
     private bool isJumping = false;
+
     private bool isRunning = false;
     private float initialDistance = 0f;
+
     private RaycastHit hit;
     private float currentSpeed = 0f;
 
     public StaminaUI stamina;
+
+    private bool powerUp = false;
 
     void Start()
     {
@@ -55,6 +61,7 @@ public class PlayerMovement : MonoBehaviour
         GetHitDistance(out dist);
         initialDistance = dist;
     }
+
     bool GetHitDistance(out float distance)
     {
         distance = 0f;
@@ -70,8 +77,7 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Move();         
-
+        //Move();
     }
 
     private void OnTriggerEnter(Collider collision)
@@ -80,8 +86,18 @@ public class PlayerMovement : MonoBehaviour
         {
             Destroy(collision.gameObject);
             FindObjectOfType<AudioManager>().Play("PowerUp");
+            powerUp = true;
             //TODO trigger some event: unlock new weapon, glide, double jump, ...
+            StartCoroutine(PowerDown(5f));
         }
+    }
+
+    private IEnumerator PowerDown(float secs)
+    {
+        yield return new WaitForSecondsRealtime(secs);
+        FindObjectOfType<AudioManager>().Play("PowerDown");
+        // TODO Revert back to normal state if needed, because power up is gone
+        powerUp = false;
     }
 
     void FixedUpdate()
@@ -93,6 +109,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 //Get relative distance
                 var relDistance = dist - initialDistance;
+
                 //Are we actually falling?
                 if (relDistance > fallingThreshold)
                 {
@@ -102,7 +119,8 @@ public class PlayerMovement : MonoBehaviour
                         UnityEngine.Debug.Log("Fell off a cliff");
                         isFalling = true;
                     }
-                    else UnityEngine.Debug.Log("basic falling!");
+                    else
+                        UnityEngine.Debug.Log("basic falling!");
                 }
             }
         }
@@ -110,8 +128,16 @@ public class PlayerMovement : MonoBehaviour
         {
             UnityEngine.Debug.Log("Infinite Fall");
         }
-        if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Falling To Landing"))
-            Move();
+        if (
+            !animator
+                .GetCurrentAnimatorStateInfo(0)
+                .IsName("Falling To Landing")
+        ) Move();
+
+        if (powerUp)
+        {
+            // TODO Do something here while power up is on
+        }
     }
 
     private void Move()
@@ -137,7 +163,6 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
-
         direction = new Vector3(-inputVector.y, 0, inputVector.x).normalized;
 
         if (isGrounded)
@@ -158,7 +183,9 @@ public class PlayerMovement : MonoBehaviour
             {
                 Idle();
             }
-            if (isJumping)    // jump only if grounded (but we will have double jump, so...)
+            if (
+                isJumping // jump only if grounded (but we will have double jump, so...)
+            )
             {
                 /* player facing movement direction */
                 TargetRotation();
@@ -166,7 +193,6 @@ public class PlayerMovement : MonoBehaviour
                 isJumping = false;
 
             }
-
         }
         if (moveSpeed == runSpeed)
             currentSpeed = Mathf.Lerp(currentSpeed, moveSpeed, 0.1f);
@@ -192,12 +218,14 @@ public class PlayerMovement : MonoBehaviour
     {
         animator.SetFloat("Speed", 0, 0.1f, Time.deltaTime);
     }
+
     private void Walk()
     {
         animator.SetFloat("Speed", 0.5f, 0.1f, Time.deltaTime);
         moveSpeed = walkSpeed;
 
     }
+
     private void Run()
     {
         animator.SetFloat("Speed", 1, 0.1f, Time.deltaTime);
@@ -225,8 +253,14 @@ public class PlayerMovement : MonoBehaviour
     private void TargetRotation()
     {
         /* player facing movement direction */
-        float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
-        float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
+        float targetAngle =
+            Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
+        float angle =
+            Mathf
+                .SmoothDampAngle(transform.eulerAngles.y,
+                targetAngle,
+                ref turnSmoothVelocity,
+                turnSmoothTime);
         transform.rotation = Quaternion.Euler(0f, angle, 0f);
     }
 
@@ -234,14 +268,15 @@ public class PlayerMovement : MonoBehaviour
     {
         inputVector = value.ReadValue<Vector2>();
     }
+
     public void OnJump(InputAction.CallbackContext value)
     {
         if (value.started && isGrounded)
         {
             isJumping = true;
         }
-
     }
+
     public void OnRun(InputAction.CallbackContext value)
     {
         if (value.started) isRunning = true;
@@ -258,6 +293,4 @@ public class PlayerMovement : MonoBehaviour
         UnityEngine.Debug.Log("Taunted");
         isTaunting = true;
     }
-
-
 }
