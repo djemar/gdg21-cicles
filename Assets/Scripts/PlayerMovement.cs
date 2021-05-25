@@ -19,11 +19,13 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] private bool isGrounded;
     [SerializeField] private bool isFalling;
-    [SerializeField] private bool isFlying = false;
+    [SerializeField] private bool isGliding = false;
     [SerializeField] private float groundCheckDistance; // check character skinWidth
     [SerializeField] private float checkDistance; // check character skinWidth
     [SerializeField] private LayerMask groundMask;
     [SerializeField] private float gravity;
+    [SerializeField] private float glidingGravity;
+    [SerializeField] private float glidingSpeed;
     [SerializeField] private float jumpHeight;
     //public float speed = 1f;
     public float turnSmoothTime = 0.1f;
@@ -32,7 +34,7 @@ public class PlayerMovement : MonoBehaviour
 
     private Vector3 direction;
     private Vector2 inputVector;
-    private Vector3 velocity;
+    [SerializeField] private Vector3 playerVelocity;
 
     private bool isJumping = false;
     private bool isRunning = false;
@@ -102,14 +104,18 @@ public class PlayerMovement : MonoBehaviour
     private void Move()
     {
         isGrounded = Physics.CheckSphere(transform.position, groundCheckDistance, groundMask);
+        //isGrounded = controller.isGrounded;
         //isFalling = !(Physics.CheckSphere(transform.position, checkDistance, groundMask));
 
-        if (isGrounded && velocity.y < 0)    // stop applying gravity if grounded
+        if (isGrounded && playerVelocity.y < 0)    // stop applying gravity if grounded
         {
-            velocity.y = -2f; // small neg value should work better than zero
+            playerVelocity.y = 0f; // small neg value should work better than zero
+            playerVelocity.z = 0f;
+            isGliding = false;
+            gravity = Physics2D.gravity.y;
         }
 
-        if (isFalling && velocity.y < 0)
+        if (isFalling && playerVelocity.y < 0)
         {
             if (isGrounded)
             {
@@ -145,6 +151,7 @@ public class PlayerMovement : MonoBehaviour
                 TargetRotation();
                 Jump();
                 isJumping = false;
+
             }
 
         }
@@ -153,19 +160,16 @@ public class PlayerMovement : MonoBehaviour
 
         controller.Move(direction * Time.deltaTime);
 
-        if (isTaunting)
-        {
-            Taunt();
-            isTaunting = false;
-        }
 
-        if (isFlying)
+        if (isGliding)
         {
-            Fly();
+            TargetRotation();
+            Glide();
         }
-        else velocity.y += gravity * Time.deltaTime; //calculate gravity
+        else
+            playerVelocity.y += gravity * Time.deltaTime; //calculate gravity
+        controller.Move(playerVelocity * Time.deltaTime); //apply gravity
 
-        controller.Move(velocity * Time.deltaTime); //apply gravity
     }
 
     private void Idle()
@@ -176,7 +180,7 @@ public class PlayerMovement : MonoBehaviour
     {
         animator.SetFloat("Speed", 0.5f, 0.1f, Time.deltaTime);
         moveSpeed = walkSpeed;
-        
+
     }
     private void Run()
     {
@@ -187,12 +191,13 @@ public class PlayerMovement : MonoBehaviour
     private void Jump()
     {
         animator.SetTrigger("Jump");
-        velocity.y = Mathf.Sqrt(jumpHeight * -2.0f * gravity);
+        playerVelocity.y += Mathf.Sqrt(jumpHeight * -2.0f * gravity);
     }
-    private void Fly()
+    private void Glide()
     {
-        //animator.SetTrigger("Jump");
-        velocity.y = 4f;
+        animator.SetFloat("Speed", 0, 0.1f, Time.deltaTime);
+        moveSpeed = glidingSpeed;
+        playerVelocity.y = glidingGravity;
     }
 
     private void Taunt()
@@ -225,10 +230,10 @@ public class PlayerMovement : MonoBehaviour
         if (value.started) isRunning = true;
         if (value.canceled) isRunning = false;
     }
-    public void OnFly(InputAction.CallbackContext value)
+    public void onGlide(InputAction.CallbackContext value)
     {
-        if (value.performed && direction.magnitude < 0.1f) isFlying = true;
-        if (value.canceled) isFlying = false;
+        if (value.started && !isGrounded) isGliding = true;
+        //if (value.canceled) isGliding = false;
     }
 
     public void OnTaunt(InputAction.CallbackContext value)
