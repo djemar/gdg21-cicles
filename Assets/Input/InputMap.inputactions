@@ -46,6 +46,14 @@
                     "interactions": ""
                 },
                 {
+                    "name": "Glide",
+                    "type": "Button",
+                    "id": "b8e60671-0369-43f9-aed9-7059b889ce8b",
+					"expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+				{
                     "name": "Menu",
                     "type": "Button",
                     "id": "2aed873e-67d3-42d0-9424-b2684514f754",
@@ -310,6 +318,17 @@
                 },
                 {
                     "name": "",
+                    "id": "c42728bc-3cab-48ba-8188-9410abcf837d",
+                    "path": "<Keyboard>/ctrl",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "PlayerControlScheme",
+                    "action": "Glide",
+					"isComposite": false,
+                    "isPartOfComposite": false
+                },
+				{
+					"name": "",
                     "id": "302b58f1-cc44-435d-a4f1-95dcdefd5adb",
                     "path": "<Keyboard>/escape",
                     "interactions": "",
