@@ -49,6 +49,8 @@ public class PlayerMovement : MonoBehaviour
     private float initialDistance = 0f;
     private RaycastHit hit;
 
+    public StaminaUI stamina;
+
     void Start()
     {
         controller = GetComponent<CharacterController>();
@@ -166,7 +168,7 @@ public class PlayerMovement : MonoBehaviour
         controller.Move(direction * Time.deltaTime);
 
 
-        if (isGliding)
+        if (isGliding && stamina.canGlide)
         {
             TargetRotation();
             Glide();
