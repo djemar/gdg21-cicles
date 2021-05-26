@@ -43,6 +43,7 @@ public class PlayerMovement : MonoBehaviour
     private bool isRunning = false;
     private float initialDistance = 0f;
     private RaycastHit hit;
+    private float currentSpeed = 0f;
 
     public StaminaUI stamina;
 
@@ -157,8 +158,11 @@ public class PlayerMovement : MonoBehaviour
             }
 
         }
-
-        direction *= moveSpeed;
+        if (moveSpeed == runSpeed)
+            currentSpeed = Mathf.Lerp(currentSpeed, moveSpeed, 0.1f);
+        else
+            currentSpeed = moveSpeed;
+        direction *= currentSpeed;
 
         controller.Move(direction * Time.deltaTime);
 
