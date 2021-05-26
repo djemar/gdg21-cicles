@@ -13,34 +13,34 @@ public class PlayerMovement : MonoBehaviour
 
     // Variables
     // SerializeField lets you declare a private var and having it accessible inside Unity inspector
-    [SerializeField] private float moveSpeed;
-    [SerializeField] private float walkSpeed;
-    [SerializeField] private float runSpeed;
-
-    [SerializeField] private bool isGrounded;
-    [SerializeField] private bool isFalling;
-    [SerializeField] private bool isGliding = false;
     [SerializeField] private float groundCheckDistance; // check character skinWidth
     [SerializeField] private float checkDistance; // check character skinWidth
     [SerializeField] private LayerMask groundMask;
+    [SerializeField] private float fallingThreshold = 1f;
+    [SerializeField] private float maxFallingThreshold = 20f;
+    [SerializeField] private bool isGrounded;
+    [SerializeField] private bool isFalling;
+    [SerializeField] private bool isGliding = false;
+    [SerializeField] private float moveSpeed;
+    [SerializeField] private float walkSpeed;
+    [SerializeField] private float runSpeed;
+    [SerializeField] private float glidingSpeed;
+    [SerializeField] private Vector3 playerVelocity;
+
     [SerializeField] private float gravity;
     [SerializeField] private float glidingGravity;
-    [SerializeField] private float glidingSpeed;
     [SerializeField] private float jumpHeight;
     //public float speed = 1f;
-    public float turnSmoothTime = 0.1f;
-    public float turnSmoothVelocity;
+    [SerializeField] private float turnSmoothTime = 0.1f;
+    [SerializeField] private float turnSmoothVelocity;
     //bool fell = false;
 
     private Vector3 direction;
+    private bool isTaunting = false;
     private Vector2 inputVector;
-    [SerializeField] private Vector3 playerVelocity;
 
     private bool isJumping = false;
     private bool isRunning = false;
-    private bool isTaunting = false;
-    public float fallingThreshold = 1f;
-    public float maxFallingThreshold = 20f;
     private float initialDistance = 0f;
     private RaycastHit hit;
 
@@ -233,7 +233,7 @@ public class PlayerMovement : MonoBehaviour
     public void onGlide(InputAction.CallbackContext value)
     {
         if (value.started && !isGrounded) isGliding = true;
-        //if (value.canceled) isGliding = false;
+        if (value.canceled) isGliding = false;
     }
 
     public void OnTaunt(InputAction.CallbackContext value)
