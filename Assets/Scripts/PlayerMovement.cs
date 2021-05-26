@@ -201,6 +201,7 @@ public class PlayerMovement : MonoBehaviour
     private void Glide()
     {
         animator.SetFloat("Speed", 0, 0.1f, Time.deltaTime);
+        StaminaUI.instance.UseStamina(1);
         moveSpeed = glidingSpeed;
         playerVelocity.y = glidingGravity;
     }
