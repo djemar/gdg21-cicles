@@ -7,12 +7,10 @@ public class StaminaUI : MonoBehaviour
 {
     public Slider staminaBar;
     public static StaminaUI instance;
-
     public bool canGlide = true;
     private int maxStamina = 100;
     private int currentStamina;
     private WaitForSeconds regenTick = new WaitForSeconds(0.0001f);
-
     private Coroutine regen;
 
     private void Awake()
@@ -24,6 +22,7 @@ public class StaminaUI : MonoBehaviour
         currentStamina = maxStamina;
         staminaBar.maxValue = maxStamina;
         staminaBar.value = maxStamina;
+        staminaBar.gameObject.SetActive(false);
         canGlide = true;
     }
 
@@ -31,6 +30,7 @@ public class StaminaUI : MonoBehaviour
     {
         if (currentStamina - amount >= 0)
         {
+            staminaBar.gameObject.SetActive(true);
             canGlide = true;
             currentStamina -= amount;
             staminaBar.value = currentStamina;
@@ -55,7 +55,9 @@ public class StaminaUI : MonoBehaviour
             staminaBar.value = currentStamina;
             yield return regenTick;
         }
+        staminaBar.gameObject.SetActive(false);
         canGlide = true;
         regen = null;
     }
+
 }
