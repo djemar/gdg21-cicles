@@ -2,9 +2,14 @@ using System.Collections;
 using System;
 using UnityEngine;
 
+[System.Serializable]
 public class FloatingObject : MonoBehaviour
 {
     private bool floatup;
+    [Range (0f,.1f)]
+    public float speed = .2f;
+    [Range (0,5)]
+    public int time = 1;
 
     private void Start()
     {
@@ -21,22 +26,20 @@ public class FloatingObject : MonoBehaviour
 
     private void FloatingUp()
     {
-        transform.position += new Vector3(0, .2f * Time.deltaTime, 0);
+        transform.position += new Vector3(0, speed * Time.deltaTime, 0);
         StartCoroutine(Wait(false));
     }
 
     private void FloatingDown()
     {
-        transform.position -= new Vector3(0, .2f * Time.deltaTime, 0);
+        transform.position -= new Vector3(0, speed * Time.deltaTime, 0);
         StartCoroutine(Wait(true));
     }
 
     private IEnumerator Wait(bool state)
     {
-        Debug.Log("WaitingBefore");
-        yield return new WaitForSecondsRealtime(1);
+        yield return new WaitForSecondsRealtime(time);
         floatup = state;
-        Debug.Log("WaitingAfter");
     }
 }
 
