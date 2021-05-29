@@ -115,6 +115,7 @@ public class PlayerMovement : MonoBehaviour
             playerVelocity.y = 0f; // small neg value should work better than zero
             playerVelocity.z = 0f;
             isGliding = false;
+            doubleJump = 2;
             gravity = Physics2D.gravity.y;
         }
 
@@ -148,16 +149,15 @@ public class PlayerMovement : MonoBehaviour
             {
                 Idle();
             }
-            if (isJumping)    // jump only if grounded (but we will have double jump, so...)
-            {
-                /* player facing movement direction */
-                TargetRotation();
-                Jump();
-                isJumping = false;
-
-            }
-
         }
+        /* if (isJumping && isGrounded)    // jump only if grounded (but we will have double jump, so...)
+        {
+            TargetRotation();
+            Jump();
+            isJumping = false;
+        } */
+
+
         if (moveSpeed == runSpeed)
             currentSpeed = Mathf.Lerp(currentSpeed, moveSpeed, 0.1f);
         else
@@ -196,8 +196,22 @@ public class PlayerMovement : MonoBehaviour
 
     private void Jump()
     {
-        animator.SetTrigger("Jump");
-        playerVelocity.y += Mathf.Sqrt(jumpHeight * -2.0f * gravity);
+        if (doubleJump > 0)
+        {
+            if (playerVelocity.y < 0f) playerVelocity.y = 0f;
+
+            if (doubleJump == 2)
+            {
+                animator.SetTrigger("Jump");
+                playerVelocity.y += Mathf.Sqrt(jumpHeight * -2.0f * gravity);
+            }
+            else
+            {
+                animator.SetTrigger("DoubleJump");
+                playerVelocity.y += Mathf.Sqrt(doubleJumpHeight * -2.0f * gravity);
+            }
+            doubleJump--;
+        }
     }
     private void Glide()
     {
@@ -226,9 +240,10 @@ public class PlayerMovement : MonoBehaviour
     }
     public void OnJump(InputAction.CallbackContext value)
     {
-        if (value.started && isGrounded)
+        if (value.started)
         {
-            isJumping = true;
+            TargetRotation();
+            Jump();
         }
 
     }
