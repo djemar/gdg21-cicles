@@ -11,6 +11,8 @@ public class PlayerCombat : MonoBehaviour
     public Transform attackPoint;
     public float attackRange = 0.5f;
     public LayerMask enemyLayers;
+    public float attackRate = 0.5f;
+    float nextAttackTime = 0f;
 
     // Update is called once per frame
     void FixedUpdate()
@@ -26,20 +28,15 @@ public class PlayerCombat : MonoBehaviour
         //animator.SetLayerWeight(animator.GetLayerIndex("Attack Layer"), 1);
         animator.SetTrigger("Attack");
         isAttacking = false;
-
+        nextAttackTime = Time.time + 1f / attackRate;
         yield return new WaitForSeconds(0.5f);
-        Collider[] hitEnemies = Physics.OverlapSphere(attackPoint.position, attackRange, enemyLayers);
 
-        foreach (Collider enemy in hitEnemies)
-        {
-            Destroy(enemy.gameObject);
-        }
         //animator.SetLayerWeight(animator.GetLayerIndex("Attack Layer"), 0);
     }
 
     public void OnAttack(InputAction.CallbackContext value)
     {
-        if (value.started && !isAttacking)
+        if (value.started && Time.time >= nextAttackTime)
         {
             isAttacking = true;
         }
@@ -51,6 +48,7 @@ public class PlayerCombat : MonoBehaviour
 
         Gizmos.DrawWireSphere(attackPoint.position, attackRange);
     }
+
     private void MeleeAttack()
     {
         Collider[] hitEnemies = Physics.OverlapSphere(attackPoint.position, attackRange, enemyLayers);
