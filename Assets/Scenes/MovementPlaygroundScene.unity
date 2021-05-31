@@ -677,6 +677,8 @@ MonoBehaviour:
   isGrounded: 0
   isFalling: 0
   isGliding: 0
+  isJumping: 0
+  doubleJump: 0
   moveSpeed: 0
   walkSpeed: 0.8
   runSpeed: 4
@@ -685,6 +687,7 @@ MonoBehaviour:
   gravity: -9.81
   glidingGravity: -1
   jumpHeight: 1
+  doubleJumpHeight: 2
   turnSmoothTime: 0.1
   turnSmoothVelocity: 5
   stamina: {fileID: 190792743}
@@ -2975,6 +2978,8 @@ MonoBehaviour:
   isGrounded: 0
   isFalling: 0
   isGliding: 0
+  isJumping: 0
+  doubleJump: 0
   moveSpeed: 0
   walkSpeed: 0.5
   runSpeed: 1
@@ -2983,6 +2988,7 @@ MonoBehaviour:
   gravity: -9.81
   glidingGravity: 0
   jumpHeight: 1
+  doubleJumpHeight: 0
   turnSmoothTime: 0.1
   turnSmoothVelocity: 5
   stamina: {fileID: 0}
@@ -3109,6 +3115,10 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 569991b9-1c3d-4af3-8c0c-0fcf36e55283
     m_ActionName: Player/Taunt[/Keyboard/f]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: b8e60671-0369-43f9-aed9-7059b889ce8b
+    m_ActionName: Player/Glide[/Keyboard/ctrl,/XInputControllerWindows/rightShoulder]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player

@@ -17,91 +17,47 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float checkDistance; // check character skinWidth
     [SerializeField] private LayerMask groundMask;
     [SerializeField] private float fallingThreshold = 1f;
-    [SerializeField] private float maxFallingThreshold = 20f;
     [SerializeField] private bool isGrounded;
-    [SerializeField] private bool isFalling;
     [SerializeField] private bool isGliding = false;
+    [SerializeField] private bool isJumping = false;
+    [SerializeField] private int doubleJump;
     [SerializeField] private float moveSpeed;
     [SerializeField] private float walkSpeed;
     [SerializeField] private float runSpeed;
     [SerializeField] private float glidingSpeed;
     [SerializeField] private Vector3 playerVelocity;
-
     [SerializeField] private float gravity;
     [SerializeField] private float glidingGravity;
     [SerializeField] private float jumpHeight;
-    //public float speed = 1f;
+    [SerializeField] private float doubleJumpHeight;
     [SerializeField] private float turnSmoothTime = 0.1f;
     [SerializeField] private float turnSmoothVelocity;
-    //bool fell = false;
 
     private Vector3 direction;
-    private bool isTaunting = false;
     private Vector2 inputVector;
-
-    private bool isJumping = false;
+    [SerializeField] private float airTime;
+    private bool isTaunting = false;
     private bool isRunning = false;
-    private float initialDistance = 0f;
-    private RaycastHit hit;
     private float currentSpeed = 0f;
-
     public StaminaUI stamina;
+
 
     void Start()
     {
         controller = GetComponent<CharacterController>();
         animator = GetComponentInChildren<Animator>();
-        var dist = 0f;
-        GetHitDistance(out dist);
-        initialDistance = dist;
-    }
-    bool GetHitDistance(out float distance)
-    {
-        distance = 0f;
-        Ray downRay = new Ray(transform.position, -Vector3.up); // this is the downward ray
-        if (Physics.Raycast(downRay, out hit))
-        {
-            distance = hit.distance;
-            return true;
-        }
-        return false;
+        airTime = 0;
     }
 
     // Update is called once per frame
     void Update()
     {
-        //Move();         
-
+        //Move();
     }
 
     void FixedUpdate()
     {
-        var dist = 0f;
-        if (GetHitDistance(out dist))
-        {
-            if (initialDistance < dist)
-            {
-                //Get relative distance
-                var relDistance = dist - initialDistance;
-                //Are we actually falling?
-                if (relDistance > fallingThreshold)
-                {
-                    //How far are we falling
-                    if (relDistance > maxFallingThreshold)
-                    {
-                        UnityEngine.Debug.Log("Fell off a cliff");
-                        isFalling = true;
-                    }
-                    else UnityEngine.Debug.Log("basic falling!");
-                }
-            }
-        }
-        else
-        {
-            UnityEngine.Debug.Log("Infinite Fall");
-        }
-        if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Falling To Landing"))
-            Move();
+        Move();
     }
 
     private void Move()
@@ -110,23 +66,18 @@ public class PlayerMovement : MonoBehaviour
         //isGrounded = controller.isGrounded;
         //isFalling = !(Physics.CheckSphere(transform.position, checkDistance, groundMask));
 
+        CheckLand();
+        CheckAirTime();
+
         if (isGrounded && playerVelocity.y < 0)    // stop applying gravity if grounded
         {
-            playerVelocity.y = 0f; // small neg value should work better than zero
+            playerVelocity.y = -1f; // small neg value should work better than zero
             playerVelocity.z = 0f;
             isGliding = false;
             doubleJump = 2;
             gravity = Physics2D.gravity.y;
         }
 
-        if (isFalling && playerVelocity.y < 0)
-        {
-            if (isGrounded)
-            {
-                animator.SetTrigger("Fall");
-                isFalling = false;
-            }
-        }
 
 
         direction = new Vector3(-inputVector.y, 0, inputVector.x).normalized;
@@ -150,12 +101,6 @@ public class PlayerMovement : MonoBehaviour
                 Idle();
             }
         }
-        /* if (isJumping && isGrounded)    // jump only if grounded (but we will have double jump, so...)
-        {
-            TargetRotation();
-            Jump();
-            isJumping = false;
-        } */
 
 
         if (moveSpeed == runSpeed)
@@ -262,6 +207,36 @@ public class PlayerMovement : MonoBehaviour
     {
         UnityEngine.Debug.Log("Taunted");
         isTaunting = true;
+    }
+
+    private void CheckAirTime()
+    {
+        if (isGrounded)
+        {
+            airTime = 0f;
+        }
+        else
+        {
+            airTime += Time.deltaTime;
+        }
+    }
+    private void CheckLand()
+    {
+        if (airTime > 0 && playerVelocity.y < -2f)
+        {
+            if (playerVelocity.y < -2f && airTime > fallingThreshold)
+            {
+                animator.SetBool("isFalling", true);
+                UnityEngine.Debug.Log("Falling!");
+                //TODO reset timer when gliding
+                if (isGrounded && airTime > fallingThreshold)
+                {
+                    UnityEngine.Debug.Log("Landed!");
+                    animator.SetTrigger("Landed");
+                    animator.SetBool("isFalling", false);
+                }
+            }
+        }
     }
 
 
