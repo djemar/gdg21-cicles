@@ -58,4 +58,9 @@ public class PlayerCombat : MonoBehaviour
             enemy.GetComponent<Enemy>().TakeDamage();
         }
     }
+
+    public void TakeDamage()
+    {
+        Debug.Log("Player is dead!");
+    }
 }
