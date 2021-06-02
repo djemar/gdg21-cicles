@@ -45,10 +45,7 @@ public class PlayerMovement : MonoBehaviour
     private bool isJumping = false;
 
     private bool isRunning = false;
-    private bool isTaunting = false;
     private bool isPaused = false;
-    public float fallingThreshold = 1f;
-    public float maxFallingThreshold = 20f;
     private float initialDistance = 0f;
 
     private RaycastHit hit;

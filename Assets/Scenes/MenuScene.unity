@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.4449471, g: 0.48868293, b: 0.5422107, a: 1}
+  m_IndirectSpecularColor: {r: 0.44494662, g: 0.48868215, b: 0.5422088, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1239,23 +1239,31 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controller: {fileID: 399938783}
   MainMenu: {fileID: 184938137}
-  moveSpeed: 0
-  walkSpeed: 0.5
-  runSpeed: 1
-  isGrounded: 0
-  isFalling: 0
-  isFlying: 0
   groundCheckDistance: 0.08
   checkDistance: 1.4
   groundMask:
     serializedVersion: 2
     m_Bits: 64
+  fallingThreshold: 1
+  maxFallingThreshold: 20
+  isGrounded: 0
+  isFalling: 0
+  isGliding: 0
+  moveSpeed: 0
+  walkSpeed: 0.5
+  runSpeed: 1
+  glidingSpeed: 0
+  playerVelocity: {x: 0, y: 0, z: 0}
   gravity: -9.81
+  glidingGravity: 0
   jumpHeight: 1
   turnSmoothTime: 0.1
   turnSmoothVelocity: 5
-  fallingThreshold: 1
-  maxFallingThreshold: 20
+  stamina: {fileID: 0}
+  hasWeapon: 0
+  PickPosition: {x: 0, y: 0, z: 0}
+  PickRotation: {x: 0, y: 0, z: 0}
+  Hand: {fileID: 0}
 --- !u!143 &399938783
 CharacterController:
   m_ObjectHideFlags: 0
@@ -5537,23 +5545,31 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controller: {fileID: 2032222538}
   MainMenu: {fileID: 0}
-  moveSpeed: 0
-  walkSpeed: 0.5
-  runSpeed: 1
-  isGrounded: 0
-  isFalling: 0
-  isFlying: 0
   groundCheckDistance: 0.08
   checkDistance: 1.4
   groundMask:
     serializedVersion: 2
     m_Bits: 64
+  fallingThreshold: 1
+  maxFallingThreshold: 20
+  isGrounded: 0
+  isFalling: 0
+  isGliding: 0
+  moveSpeed: 0
+  walkSpeed: 0.5
+  runSpeed: 1
+  glidingSpeed: 0
+  playerVelocity: {x: 0, y: 0, z: 0}
   gravity: -9.81
+  glidingGravity: 0
   jumpHeight: 1
   turnSmoothTime: 0.1
   turnSmoothVelocity: 5
-  fallingThreshold: 1
-  maxFallingThreshold: 20
+  stamina: {fileID: 0}
+  hasWeapon: 0
+  PickPosition: {x: 0, y: 0, z: 0}
+  PickRotation: {x: 0, y: 0, z: 0}
+  Hand: {fileID: 0}
 --- !u!143 &2032222538
 CharacterController:
   m_ObjectHideFlags: 0
