@@ -14,9 +14,9 @@ public class Enemy : MonoBehaviour
     public LayerMask whatIsGround, whatIsPlayer;
 
     //Patroling
-    public float startingX;
-    public float startingY;
-    public float startingZ;
+    private float startingX;
+    private float startingY;
+    private float startingZ;
     public Vector3 dest;
     public float walkPointRange;
 
@@ -32,6 +32,9 @@ public class Enemy : MonoBehaviour
     {
         player = GameObject.Find("Amy").transform;
         agent = GetComponent<NavMeshAgent>();
+        startingX = transform.position.x;
+        startingY = transform.position.y;
+        startingZ = transform.position.z;
     }
 
     private void Patroling()
