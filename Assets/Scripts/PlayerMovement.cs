@@ -10,6 +10,7 @@ public class PlayerMovement : MonoBehaviour
     // References
     public CharacterController controller;
     private Animator animator;
+    public GameObject MainMenu;
 
     // Variables
     // SerializeField lets you declare a private var and having it accessible inside Unity inspector
@@ -37,6 +38,7 @@ public class PlayerMovement : MonoBehaviour
     private bool isJumping = false;
     private bool isRunning = false;
     private bool isTaunting = false;
+    private bool isPaused = false;
     public float fallingThreshold = 1f;
     public float maxFallingThreshold = 20f;
     private float initialDistance = 0f;
@@ -237,5 +239,21 @@ public class PlayerMovement : MonoBehaviour
         isTaunting = true;
     }
 
+    public void OnMenu()
+    {
+        if (!isPaused)
+        {
+            isPaused = true;
+            Time.timeScale = 0;
+            MainMenu.SetActive(true);
+
+        }
+        else
+        {
+            isPaused = false;
+            Time.timeScale = 1;
+            MainMenu.SetActive(false);
+        }
+    }
 
 }
