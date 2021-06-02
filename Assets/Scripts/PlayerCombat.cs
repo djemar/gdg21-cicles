@@ -13,8 +13,15 @@ public class PlayerCombat : MonoBehaviour
     public LayerMask enemyLayers;
     public float attackRate = 0.5f;
     float nextAttackTime = 0f;
+    public PlayerMovement playerMovement;
 
     // Update is called once per frame
+
+    private void Awake()
+    {
+        playerMovement = GetComponent<PlayerMovement>();
+    }
+
     void FixedUpdate()
     {
         if (isAttacking)
@@ -36,7 +43,7 @@ public class PlayerCombat : MonoBehaviour
 
     public void OnAttack(InputAction.CallbackContext value)
     {
-        if (value.started && Time.time >= nextAttackTime)
+        if (value.started && Time.time >= nextAttackTime && playerMovement.hasWeapon)
         {
             isAttacking = true;
         }
