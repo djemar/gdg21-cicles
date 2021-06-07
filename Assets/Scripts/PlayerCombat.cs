@@ -7,20 +7,17 @@ using UnityEngine.InputSystem;
 public class PlayerCombat : MonoBehaviour
 {
     public Animator animator;
-    private bool isAttacking = false;
     public Transform attackPoint;
-    public float attackRange = 0.5f;
     public LayerMask enemyLayers;
+    public GameObject MainMenu;
+    private bool isAttacking = false;
+    public float attackRange = 0.5f;
     public float attackRate = 0.5f;
+    private bool isDead = false;
+    public bool hasWeapon = false;
     float nextAttackTime = 0f;
-    public PlayerMovement playerMovement;
 
     // Update is called once per frame
-
-    private void Awake()
-    {
-        playerMovement = GetComponent<PlayerMovement>();
-    }
 
     void FixedUpdate()
     {
@@ -43,7 +40,7 @@ public class PlayerCombat : MonoBehaviour
 
     public void OnAttack(InputAction.CallbackContext value)
     {
-        if (value.started && Time.time >= nextAttackTime && playerMovement.hasWeapon)
+        if (value.started && Time.time >= nextAttackTime && hasWeapon)
         {
             isAttacking = true;
         }
@@ -68,6 +65,15 @@ public class PlayerCombat : MonoBehaviour
 
     public void TakeDamage()
     {
-        Debug.Log("Player is dead!");
+        if (!isDead)
+        {
+            isDead = true;
+            Debug.Log("Player is dead!");
+            animator.SetTrigger("isDead");
+            GetComponent<PlayerInput>().enabled = false;
+            GetComponent<PlayerMovement>().enabled = false;
+            MainMenu.SetActive(true);
+            //Destroy(gameObject, 3f);
+        }
     }
 }

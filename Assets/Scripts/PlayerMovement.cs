@@ -53,11 +53,7 @@ public class PlayerMovement : MonoBehaviour
 
     public StaminaUI stamina;
 
-    // Pick-up variables
-    public bool hasWeapon = false;
-    public Vector3 PickPosition;
-    public Vector3 PickRotation;
-    public Transform Hand;
+    public HUDController HUD;
 
     void Start()
     {
@@ -91,11 +87,7 @@ public class PlayerMovement : MonoBehaviour
         if (collision.CompareTag("PowerUpMelee"))
         {
             FindObjectOfType<AudioManager>().Play("PowerUp");
-            hasWeapon = true;
-            collision.gameObject.tag = "Untagged";
-            collision.gameObject.transform.parent = Hand.transform;
-            collision.gameObject.transform.localPosition = PickPosition;
-            collision.gameObject.transform.localEulerAngles = PickRotation;
+            HUD.pickUpMeleeWeapon();
         }
     }
 
