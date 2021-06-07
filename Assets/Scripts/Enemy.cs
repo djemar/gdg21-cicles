@@ -13,25 +13,30 @@ public class Enemy : MonoBehaviour
 
     public LayerMask whatIsGround, whatIsPlayer;
 
+    public ParticleSystem particles;
+
+    private bool isDead = false;
+
     //Patroling
     private float startingX;
     private float startingY;
     private float startingZ;
-    public Vector3 dest;
+    private Vector3 dest;
+    private Vector3 ground;
     public float walkPointRange;
 
     //Attacking
     public float timeBetweenAttacks;
+    public float deathTimer;
     bool alreadyAttacked;
 
     //States
     public float sightRange, attackRange;
     public bool playerInSightRange, playerInAttackRange;
+   
 
     private void Awake()
     {
-        player = GameObject.Find("Amy").transform;
-        agent = GetComponent<NavMeshAgent>();
         startingX = transform.position.x;
         startingY = transform.position.y;
         startingZ = transform.position.z;
@@ -81,16 +86,15 @@ public class Enemy : MonoBehaviour
 
     public void TakeDamage()
     {
-        Die();
-    }
-
-    void Die()
-    {
-        Debug.Log("Enemy is dead.");
-        //animator.SetBool("isDead", true);
-        GetComponent<SphereCollider>().enabled = false;
-        this.enabled = false;
-        //Destroy(gameObject);
+        if (!isDead)
+        {
+            isDead = true;
+            animator.SetTrigger("isDead");
+            GetComponent<NavMeshAgent>().enabled = false;
+            GetComponent<SphereCollider>().enabled = false;
+            Destroy(gameObject, deathTimer);
+            Debug.Log("Enemy is dead.");
+        }
     }
 
     // Update is called once per frame
@@ -99,13 +103,13 @@ public class Enemy : MonoBehaviour
         playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
         playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
 
-        if (!playerInSightRange && !playerInAttackRange)
+        if (!playerInSightRange && !playerInAttackRange && !isDead)
             Patroling();
 
-        if (playerInSightRange && !playerInAttackRange)
+        if (playerInSightRange && !playerInAttackRange && !isDead)
             ChasePlayer();
 
-        if (playerInSightRange && playerInAttackRange)
+        if (playerInSightRange && playerInAttackRange && !isDead)
             AttackPlayer();
 
     }
@@ -120,10 +124,11 @@ public class Enemy : MonoBehaviour
 
     private void EnemyMeleeAttack()
     {
-        Debug.Log("Event on enemy animation");
         Collider[] hitPlayer = Physics.OverlapSphere(attackPoint.position, attackRange, whatIsPlayer);
 
-        foreach(var player in hitPlayer) 
-            player.GetComponent<PlayerCombat>().TakeDamage();
+        foreach (var p in hitPlayer)
+        {
+            p.GetComponent<PlayerCombat>().TakeDamage();
+        }
     }
 }
