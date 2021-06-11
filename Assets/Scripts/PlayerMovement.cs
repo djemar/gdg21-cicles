@@ -6,6 +6,7 @@ public class PlayerMovement : MonoBehaviour
 {
     // References
     public CharacterController controller;
+
     private Animator animator;
     public GameObject MainMenu;
 
@@ -39,6 +40,7 @@ public class PlayerMovement : MonoBehaviour
     private bool canMove = true;
     public StaminaUI stamina;
 
+    private bool powerUp = false;
     private bool isPaused = false;
 
 
@@ -55,10 +57,35 @@ public class PlayerMovement : MonoBehaviour
         //Move();
     }
 
+    private void OnTriggerEnter(Collider collision)
+    {
+        if (collision.CompareTag("PowerUp"))
+        {
+            Destroy(collision.gameObject);
+            FindObjectOfType<AudioManager>().Play("PowerUp");
+            powerUp = true;
+            //TODO trigger some event: unlock new weapon, glide, double jump, ...
+            StartCoroutine(PowerDown(5f));
+        }
+    }
+
+    private IEnumerator PowerDown(float secs)
+    {
+        yield return new WaitForSecondsRealtime(secs);
+        FindObjectOfType<AudioManager>().Play("PowerDown");
+        // TODO Revert back to normal state if needed, because power up is gone
+        powerUp = false;
+    }
+
     void FixedUpdate()
     {
         if (canMove)
             Move();
+
+        if (powerUp)
+        {
+            // TODO Do something here while power up is on
+        }
     }
 
     private void Move()
@@ -79,7 +106,6 @@ public class PlayerMovement : MonoBehaviour
             doubleJump = 2;
             gravity = Physics2D.gravity.y;
         }
-
 
 
         direction = new Vector3(-inputVector.y, 0, inputVector.x).normalized;
@@ -133,12 +159,14 @@ public class PlayerMovement : MonoBehaviour
     {
         animator.SetFloat("Speed", 0, 0.1f, Time.deltaTime);
     }
+
     private void Walk()
     {
         animator.SetFloat("Speed", 0.5f, 0.1f, Time.deltaTime);
         moveSpeed = walkSpeed;
 
     }
+
     private void Run()
     {
         animator.SetFloat("Speed", 1, 0.1f, Time.deltaTime);
@@ -179,8 +207,14 @@ public class PlayerMovement : MonoBehaviour
     private void TargetRotation()
     {
         /* player facing movement direction */
-        float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
-        float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
+        float targetAngle =
+            Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
+        float angle =
+            Mathf
+                .SmoothDampAngle(transform.eulerAngles.y,
+                targetAngle,
+                ref turnSmoothVelocity,
+                turnSmoothTime);
         transform.rotation = Quaternion.Euler(0f, angle, 0f);
     }
 
@@ -188,6 +222,7 @@ public class PlayerMovement : MonoBehaviour
     {
         inputVector = value.ReadValue<Vector2>();
     }
+
     public void OnJump(InputAction.CallbackContext value)
     {
         if (value.started)
@@ -195,8 +230,8 @@ public class PlayerMovement : MonoBehaviour
             TargetRotation();
             Jump();
         }
-
     }
+
     public void OnRun(InputAction.CallbackContext value)
     {
         if (value.started) isRunning = true;
