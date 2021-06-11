@@ -4,18 +4,29 @@ using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
 
 public class HUDController : MonoBehaviour
 {
-
     public static GameObject TopItem;
     public static GameObject BottomItem;
     public static GameObject LeftItem;
     public static GameObject RightItem;
-    public static GameObject Bubble;
-    public static GameObject Dance;
-    public static GameObject Hammer;
-    public static GameObject Bazooka;
+    public GameObject Bubble;
+    public GameObject Dance;
+    public GameObject Bazooka;
+    public GameObject Hammer;
+    private Vector2 inputVector;
+    private Vector2 Up = new Vector2(0, 1);
+    private Vector2 Down = new Vector2(0, -1);
+    private Vector2 Left = new Vector2(-1, 0);
+    private Vector2 Right = new Vector2(1, 0);
+    public PlayerCombat playerCombat;
+    public GameObject MeleeWeapon;
+    public Vector3 PickPosition;
+    public Vector3 PickRotation;
+    public Transform Hand;
+    private bool hasHammer = false;
 
     // Start is called before the first frame update
     void Start()
@@ -25,10 +36,6 @@ public class HUDController : MonoBehaviour
         BottomItem = GameObject.Find("Estus");
         LeftItem = GameObject.Find("Shield");
         RightItem = GameObject.Find("Weapon");
-        Bubble = GameObject.Find("Bubble");
-        Dance = GameObject.Find("Dance");
-        Hammer = GameObject.Find("Hammer");
-        Bazooka = GameObject.Find("Bazooka");
 
         Bubble.SetActive(false);
         Dance.SetActive(false);
@@ -37,7 +44,55 @@ public class HUDController : MonoBehaviour
 
     }
 
-    public static void activateTopItem()
+    private void FixedUpdate()
+    {
+
+    }
+
+    public void OnInventory(InputAction.CallbackContext value)
+    {
+        inputVector = value.ReadValue<Vector2>();
+        if (inputVector.Equals(Up))
+        {
+
+        }
+        else if (inputVector.Equals(Down))
+        {
+
+        }
+        else if (inputVector.Equals(Left))
+        {
+
+        }
+        else if (inputVector.Equals(Right) && hasHammer && value.started)
+        {
+            if (Hammer.activeSelf)
+            {
+                deactivateRightItem();
+                playerCombat.hasWeapon = true;
+                MeleeWeapon.SetActive(true);
+            }
+            else if (!Hammer.activeSelf)
+            {
+                activateRightItem();
+                playerCombat.hasWeapon = false;
+                MeleeWeapon.SetActive(false);
+            }
+        }
+    }
+
+    public void pickUpMeleeWeapon()
+    {
+        hasHammer = true;
+        MeleeWeapon.tag = "Untagged";
+        MeleeWeapon.transform.parent = Hand.transform;
+        MeleeWeapon.transform.localPosition = PickPosition;
+        MeleeWeapon.transform.localEulerAngles = PickRotation;
+        MeleeWeapon.SetActive(false);
+        activateRightItem();
+    }
+
+    public void activateTopItem()
     {
 
         TopItem.GetComponent<Image>().color = new Color(1f, 0.5607843f, 0.8747101f, 1f);
@@ -45,7 +100,7 @@ public class HUDController : MonoBehaviour
 
     }
     
-    public static void deactivateTopItem()
+    public void deactivateTopItem()
     {
 
         TopItem.GetComponent<Image>().color = new Color(1f, 0.5607843f, 0.8747101f, 0.3921569f);
@@ -53,7 +108,7 @@ public class HUDController : MonoBehaviour
 
     }
 
-    public static void activateBottomItem()
+    public void activateBottomItem()
     {
 
         BottomItem.GetComponent<Image>().color = new Color(1f, 0.5607843f, 0.8747101f, 1f);
@@ -61,7 +116,7 @@ public class HUDController : MonoBehaviour
 
     }
 
-    public static void deactivateBottomItem()
+    public void deactivateBottomItem()
     {
 
         BottomItem.GetComponent<Image>().color = new Color(1f, 0.5607843f, 0.8747101f, 0.3921569f);
@@ -69,7 +124,7 @@ public class HUDController : MonoBehaviour
 
     }
 
-    public static void activateLeftItem()
+    public void activateLeftItem()
     {
 
         LeftItem.GetComponent<Image>().color = new Color(1f, 0.5607843f, 0.8747101f, 1f);
@@ -77,7 +132,7 @@ public class HUDController : MonoBehaviour
 
     }
 
-    public static void deactivateLeftItem()
+    public void deactivateLeftItem()
     {
 
         LeftItem.GetComponent<Image>().color = new Color(1f, 0.5607843f, 0.8747101f, 0.3921569f);
@@ -85,7 +140,7 @@ public class HUDController : MonoBehaviour
 
     }
 
-    public static void activateRightItem()
+    public void activateRightItem()
     {
 
         RightItem.GetComponent<Image>().color = new Color(1f, 0.5607843f, 0.8747101f, 1f);
@@ -93,11 +148,11 @@ public class HUDController : MonoBehaviour
 
     }
 
-    public static void deactivateRightItem()
+    public void deactivateRightItem()
     {
 
         RightItem.GetComponent<Image>().color = new Color(1f, 0.5607843f, 0.8747101f, 0.3921569f);
-        Hammer.SetActive(false);
+        Hammer.SetActive(false); 
 
     }
 
