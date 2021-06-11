@@ -17,7 +17,7 @@ public class StaminaUI : MonoBehaviour
     {
         instance = this;
     }
-    void Start()
+    public void Start()
     {
         currentStamina = maxStamina;
         staminaBar.maxValue = maxStamina;
@@ -34,13 +34,14 @@ public class StaminaUI : MonoBehaviour
             canGlide = true;
             currentStamina -= amount;
             staminaBar.value = currentStamina;
-            if (regen != null)
+            /* if (regen != null)
                 StopCoroutine(regen);
-            regen = StartCoroutine(RegenStamina());
+            regen = StartCoroutine(RegenStamina()); */
         }
         else
         {
             Debug.Log("Not enough stamina fat ass");
+            staminaBar.gameObject.SetActive(false);
             canGlide = false;
         }
     }

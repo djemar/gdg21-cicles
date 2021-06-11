@@ -1,7 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -16,6 +13,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float groundCheckDistance; // check character skinWidth
     [SerializeField] private float checkDistance; // check character skinWidth
     [SerializeField] private LayerMask groundMask;
+    [SerializeField] private float airTime;
     [SerializeField] private float fallingThreshold = 1f;
     [SerializeField] private bool isGrounded;
     [SerializeField] private bool isGliding = false;
@@ -32,13 +30,12 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float doubleJumpHeight;
     [SerializeField] private float turnSmoothTime = 0.1f;
     [SerializeField] private float turnSmoothVelocity;
-
     private Vector3 direction;
     private Vector2 inputVector;
-    [SerializeField] private float airTime;
     private bool isTaunting = false;
     private bool isRunning = false;
     private float currentSpeed = 0f;
+    private bool canMove = true;
     public StaminaUI stamina;
 
 
@@ -57,7 +54,8 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-        Move();
+        if (canMove)
+            Move();
     }
 
     private void Move()
@@ -74,6 +72,7 @@ public class PlayerMovement : MonoBehaviour
             playerVelocity.y = -1f; // small neg value should work better than zero
             playerVelocity.z = 0f;
             isGliding = false;
+            stamina.Start();
             doubleJump = 2;
             gravity = Physics2D.gravity.y;
         }
@@ -118,7 +117,11 @@ public class PlayerMovement : MonoBehaviour
             Glide();
         }
         else
+        {
+            isGliding = false;
+            animator.SetBool("isGliding", false);
             playerVelocity.y += gravity * Time.deltaTime; //calculate gravity
+        }
         controller.Move(playerVelocity * Time.deltaTime); //apply gravity
 
     }
@@ -141,7 +144,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Jump()
     {
-        if (doubleJump > 0)
+        if (doubleJump > 0 && canMove)
         {
             if (playerVelocity.y < 0f) playerVelocity.y = 0f;
 
@@ -153,14 +156,13 @@ public class PlayerMovement : MonoBehaviour
             else
             {
                 animator.SetTrigger("DoubleJump");
-                playerVelocity.y += Mathf.Sqrt(doubleJumpHeight * -2.0f * gravity);
+                playerVelocity.y = Mathf.Sqrt(doubleJumpHeight * -2.0f * gravity);
             }
             doubleJump--;
         }
     }
     private void Glide()
     {
-        animator.SetFloat("Speed", 0, 0.1f, Time.deltaTime);
         StaminaUI.instance.UseStamina(1);
         moveSpeed = glidingSpeed;
         playerVelocity.y = glidingGravity;
@@ -199,8 +201,16 @@ public class PlayerMovement : MonoBehaviour
     }
     public void onGlide(InputAction.CallbackContext value)
     {
-        if (value.started && !isGrounded) isGliding = true;
-        if (value.canceled) isGliding = false;
+
+        UnityEngine.Debug.Log("onGlide ->" + stamina.canGlide);
+        if (value.started && !isGrounded && stamina.canGlide) isGliding = true;
+        if (value.canceled || !stamina.canGlide)
+        {
+            UnityEngine.Debug.Log("exit gliding");
+            isGliding = false;
+            animator.SetBool("isGliding", false);
+        }
+
     }
 
     public void OnTaunt(InputAction.CallbackContext value)
@@ -211,7 +221,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void CheckAirTime()
     {
-        if (isGrounded)
+        if (isGrounded || isGliding)
         {
             airTime = 0f;
         }
@@ -222,22 +232,44 @@ public class PlayerMovement : MonoBehaviour
     }
     private void CheckLand()
     {
-        if (airTime > 0 && playerVelocity.y < -2f)
+        if (airTime > 0 || isGliding)
         {
-            if (playerVelocity.y < -2f && airTime > fallingThreshold)
+            TargetRotation();
+            if (isGliding && stamina.canGlide)
             {
+                animator.SetBool("isGliding", true);
+                // animator.SetBool("isFalling", false);
+            }
+            else
+            {
+                //animator.SetBool("isGliding", false);
                 animator.SetBool("isFalling", true);
-                UnityEngine.Debug.Log("Falling!");
-                //TODO reset timer when gliding
-                if (isGrounded && airTime > fallingThreshold)
-                {
-                    UnityEngine.Debug.Log("Landed!");
-                    animator.SetTrigger("Landed");
-                    animator.SetBool("isFalling", false);
-                }
+            }
+            UnityEngine.Debug.Log("Falling!");
+
+            if (isGrounded && airTime <= fallingThreshold)
+            {
+                UnityEngine.Debug.Log("Soft Landing!");
+                animator.SetBool("isFalling", false);
+                animator.SetBool("isGliding", false);
+            }
+
+            if (isGrounded && airTime > fallingThreshold)
+            {
+                UnityEngine.Debug.Log("Hard landing!");
+                animator.SetTrigger("Landed");
+                animator.SetBool("isFalling", false);
+                animator.SetBool("isGliding", false);
+
             }
         }
     }
 
+    public void StopMovement(int enable)
+    {
+        Debug.Log("PrintEvent: " + enable.ToString() + " called at: " + Time.time);
+        canMove = enable == 0;
+
+    }
 
 }
