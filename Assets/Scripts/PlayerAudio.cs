@@ -26,11 +26,11 @@ public class PlayerMovementAudio : MonoBehaviour
         int flag = rd.Next(1, 5);
         if (flag == 1)
         {
-            audioManager.Play("PlayerJump01");
+            audioManager.Play("PlayerLaugh01");
         }
         else if (flag == 2)
         {
-            audioManager.Play("PlayerJump02");
+            audioManager.Play("PlayerLaugh02");
         }
     }
 
