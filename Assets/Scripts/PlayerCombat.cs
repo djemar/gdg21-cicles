@@ -19,18 +19,11 @@ public class PlayerCombat : MonoBehaviour
 
     // Update is called once per frame
 
-    private bool isAttacking = false;
-    
     public bool isShooting = true;
 
     public float fireRate = 10f;
 
-    public Transform attackPoint;
-
     public Transform shootPoint;
-    public float attackRange = 0.5f;
-
-    public LayerMask enemyLayers;
 
 
     [SerializeField]
@@ -43,11 +36,13 @@ public class PlayerCombat : MonoBehaviour
     {
         if (isAttacking)
         {
-            if(!isShooting){
-            StartCoroutine(Attack());
+            if (!isShooting)
+            {
+                StartCoroutine(Attack());
             }
-            else if(Time.time >= nextTimetoFire){
-                nextTimetoFire = Time.time + 1f/fireRate;
+            else if (Time.time >= nextTimetoFire)
+            {
+                nextTimetoFire = Time.time + 1f / fireRate;
                 Shoot();
 
             }
@@ -70,7 +65,8 @@ public class PlayerCombat : MonoBehaviour
         //animator.SetLayerWeight(animator.GetLayerIndex("Attack Layer"), 0);
     }
 
-    private void Shoot(){
+    private void Shoot()
+    {
         // RaycastHit hit;
         // isAttacking = false;
 
