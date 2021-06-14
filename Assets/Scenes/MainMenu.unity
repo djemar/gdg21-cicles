@@ -803,7 +803,7 @@ MonoBehaviour:
     m_ActionName: UI/Select[/Keyboard/enter]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: PlayerControlScheme
-  m_DefaultActionMap: UI
+  m_DefaultActionMap: MainMenu
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
 --- !u!1 &1433228385
