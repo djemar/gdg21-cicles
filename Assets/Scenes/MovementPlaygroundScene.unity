@@ -667,15 +667,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controller: {fileID: 399938783}
+  MainMenu: {fileID: 0}
   groundCheckDistance: 0.08
   checkDistance: 1.4
   groundMask:
     serializedVersion: 2
     m_Bits: 64
+  airTime: 0
   fallingThreshold: 1
-  maxFallingThreshold: 20
   isGrounded: 0
-  isFalling: 0
   isGliding: 0
   isJumping: 0
   doubleJump: 0
@@ -714,18 +714,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: c45de11139c60bf40a35d95af6c5eae1, type: 3}
   m_PrefabInstance: {fileID: 451180030}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &399938786
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 399938780}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0c617f40080c1474cac6eefc220ed819, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &451180030
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2968,15 +2956,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controller: {fileID: 2032222538}
+  MainMenu: {fileID: 0}
   groundCheckDistance: 0.08
   checkDistance: 1.4
   groundMask:
     serializedVersion: 2
     m_Bits: 64
+  airTime: 0
   fallingThreshold: 1
-  maxFallingThreshold: 20
   isGrounded: 0
-  isFalling: 0
   isGliding: 0
   isJumping: 0
   doubleJump: 0
