@@ -39,8 +39,8 @@ public class PlayerMovement : MonoBehaviour
     private float currentSpeed = 0f;
     private bool canMove = true;
     public StaminaUI stamina;
+    public HUDController HUD;
 
-    private bool powerUp = false;
     private bool isPaused = false;
 
 
@@ -59,33 +59,17 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnTriggerEnter(Collider collision)
     {
-        if (collision.CompareTag("PowerUp"))
+        if (collision.CompareTag("PowerUpMelee"))
         {
-            Destroy(collision.gameObject);
             FindObjectOfType<AudioManager>().Play("PowerUp");
-            powerUp = true;
-            //TODO trigger some event: unlock new weapon, glide, double jump, ...
-            StartCoroutine(PowerDown(5f));
+            HUD.pickUpMeleeWeapon();
         }
-    }
-
-    private IEnumerator PowerDown(float secs)
-    {
-        yield return new WaitForSecondsRealtime(secs);
-        FindObjectOfType<AudioManager>().Play("PowerDown");
-        // TODO Revert back to normal state if needed, because power up is gone
-        powerUp = false;
     }
 
     void FixedUpdate()
     {
         if (canMove)
             Move();
-
-        if (powerUp)
-        {
-            // TODO Do something here while power up is on
-        }
     }
 
     private void Move()

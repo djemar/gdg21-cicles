@@ -13,8 +13,6 @@ public class Enemy : MonoBehaviour
 
     public LayerMask whatIsGround, whatIsPlayer;
 
-    public ParticleSystem particles;
-
     private bool isDead = false;
 
     //Patroling

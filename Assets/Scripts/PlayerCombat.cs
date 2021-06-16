@@ -56,13 +56,6 @@ public class PlayerCombat : MonoBehaviour
         isAttacking = false;
 
         yield return new WaitForSeconds(0.5f);
-        Collider[] hitEnemies = Physics.OverlapSphere(attackPoint.position, attackRange, enemyLayers);
-
-        foreach (Collider enemy in hitEnemies)
-        {
-            Destroy(enemy.gameObject);
-        }
-        //animator.SetLayerWeight(animator.GetLayerIndex("Attack Layer"), 0);
     }
 
     private void Shoot()
@@ -82,7 +75,7 @@ public class PlayerCombat : MonoBehaviour
 
     public void OnAttack(InputAction.CallbackContext value)
     {
-        if (value.started && !isAttacking)
+        if (value.started && !isAttacking && hasWeapon)
         {
             isAttacking = true;
         }

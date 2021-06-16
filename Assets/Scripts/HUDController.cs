@@ -23,8 +23,8 @@ public class HUDController : MonoBehaviour
     private Vector2 Right = new Vector2(1, 0);
     public PlayerCombat playerCombat;
     public GameObject MeleeWeapon;
-    public Vector3 PickPosition;
-    public Vector3 PickRotation;
+    public Vector3 PickPosition;    // x = 0.003419     y = 0.000451    z = 0.000457
+    public Vector3 PickRotation;    // x = 82.979       y = -8.463      z = 86.094
     public Transform Hand;
     private bool hasHammer = false;
 
@@ -71,12 +71,14 @@ public class HUDController : MonoBehaviour
                 deactivateRightItem();
                 playerCombat.hasWeapon = true;
                 MeleeWeapon.SetActive(true);
+                Debug.Log("Activating hammer: " + MeleeWeapon.activeSelf);
             }
             else if (!Hammer.activeSelf)
             {
                 activateRightItem();
                 playerCombat.hasWeapon = false;
                 MeleeWeapon.SetActive(false);
+                Debug.Log("Deactivating hammer: " + MeleeWeapon.activeSelf);
             }
         }
     }
@@ -89,6 +91,7 @@ public class HUDController : MonoBehaviour
         MeleeWeapon.transform.localPosition = PickPosition;
         MeleeWeapon.transform.localEulerAngles = PickRotation;
         MeleeWeapon.SetActive(false);
+        Debug.Log("Picking object: " + MeleeWeapon.activeSelf);
         activateRightItem();
     }
 
