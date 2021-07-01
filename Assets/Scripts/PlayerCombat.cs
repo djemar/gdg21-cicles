@@ -19,10 +19,7 @@ public class PlayerCombat : MonoBehaviour
     public bool hasWeapon = false;
     public bool hasShield = false;
     float nextAttackTime = 0f;
-
-    // Update is called once per frame
-
-    public bool isShooting = true;
+    public bool isShooting = false;
 
     public float fireRate = 10f;
 
@@ -69,6 +66,7 @@ public class PlayerCombat : MonoBehaviour
         // if(Physics.Raycast(player.transform.position, player.transform.forward, out hit, shootRange)){
         //     Debug.Log(hit.transform.name);
         // }
+        Debug.Log("Trying to shoot");
         isAttacking = false;
 
         Vector3 shootDir = transform.forward;
@@ -78,7 +76,7 @@ public class PlayerCombat : MonoBehaviour
 
     public void OnAttack(InputAction.CallbackContext value)
     {
-        if (value.started && !isAttacking && hasWeapon)
+        if (value.started && !isAttacking && (hasWeapon || isShooting))
         {
             isAttacking = true;
         }

@@ -16,13 +16,14 @@ public class Bullet : MonoBehaviour
     private float totalDistance;
 
     void Start(){
-        this.totalDistance = 0;
     }
 
     private Vector3 shootDir;
     public void Setup(Vector3 shootDir){
+        Debug.Log("Setting up the bullet");
         this.shootDir = shootDir;
         this.initialPos = transform.position;
+        this.totalDistance = 0;
 
     }
 

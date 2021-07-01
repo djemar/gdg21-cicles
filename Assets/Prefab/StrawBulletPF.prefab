@@ -224,7 +224,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 10
-  range: 6
+  range: 5
   damage: 10
   blastRadius: 5
   explosionForce: 0

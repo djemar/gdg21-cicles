@@ -25,20 +25,29 @@ public class HUDController : MonoBehaviour
     public MaterialManager materialManager;
     private GameObject MeleeWeapon;
     private GameObject Shield;
+
+    private GameObject RangedWeapon;
     public Vector3 PickPosition;    // x = 0.003419     y = 0.000451    z = 0.000457
     public Vector3 PickRotation;    // x = 82.979       y = -8.463      z = 86.094
+
+    public Vector3 bazookaPos;      // x= 0.147         y = 1.07500005  z = 0.26699999
+
+    public Vector3 bazookaRot;
     public Transform Hand;
+
+    public Transform WeaponPosition;
     public bool hasHammer = false;
     public bool hasShield = false;
+    public bool hasBazooka = false;
 
     // Start is called before the first frame update
     void Start()
     {
 
-        TopItem = GameObject.Find("Spell");
-        BottomItem = GameObject.Find("Estus");
-        LeftItem = GameObject.Find("Shield");
-        RightItem = GameObject.Find("Weapon");
+        TopItem = GameObject.Find("TopItem");
+        BottomItem = GameObject.Find("BottomItem");
+        LeftItem = GameObject.Find("LeftItem");
+        RightItem = GameObject.Find("RightItem");
 
         Bubble.SetActive(false);
         Dance.SetActive(false);
@@ -68,12 +77,37 @@ public class HUDController : MonoBehaviour
         {
 
         }
-        else if (inputVector.Equals(Left)) //3
+        else if (inputVector.Equals(Left) && hasBazooka && value.started) //3
         {
+            if (playerCombat.hasWeapon)
+            {
+                playerCombat.hasWeapon = false;
+                MeleeWeapon.SetActive(false);
+                activateRightItem();
+            }
+            if (Bazooka.activeSelf)
+            {
+                deactivateLeftItem();
+                playerCombat.isShooting = true;
+                RangedWeapon.SetActive(true);
+                Debug.Log("Activating bazooka: " + RangedWeapon.activeSelf);
+            }
+            else if (!Bazooka.activeSelf)
+            {
+                activateLeftItem();
+                playerCombat.isShooting = false;
+                RangedWeapon.SetActive(false);
+                Debug.Log("Deactivating bazooka: " + RangedWeapon.activeSelf);
+            }
             
         }
         else if (inputVector.Equals(Right) && hasHammer && value.started) //4
         {
+            if(playerCombat.isShooting){
+                playerCombat.isShooting = false;
+                RangedWeapon.SetActive(false);
+                activateLeftItem();
+            }
             if (Hammer.activeSelf)
             {
                 deactivateRightItem();
@@ -111,6 +145,22 @@ public class HUDController : MonoBehaviour
         Shield.tag = "Untagged";
         Shield.SetActive(false);
         activateTopItem();
+    }
+
+    public void pickUpRangedWeapon(Collider collision)
+    {
+        hasBazooka = true;
+        RangedWeapon = collision.gameObject;
+        RangedWeapon.tag = "Untagged";
+        /*
+            TODO positioning of the weapon
+        */
+        RangedWeapon.transform.parent = WeaponPosition.transform;
+        RangedWeapon.transform.localPosition = bazookaPos;
+        RangedWeapon.transform.localEulerAngles = bazookaRot;
+        RangedWeapon.SetActive(false);
+        Debug.Log("Picking Object: " + RangedWeapon.activeSelf);
+        activateLeftItem();
     }
 
     public void activateTopItem()
