@@ -16,7 +16,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float checkDistance; // check character skinWidth
     [SerializeField] private LayerMask groundMask;
     [SerializeField] private float airTime;
-    [SerializeField] private float fallingThreshold = 1f;
+    [SerializeField] private float landingThreshold = 2f;
+    [SerializeField] private float fallingThreshold = 0.5f;
     [SerializeField] private bool isGrounded;
     [SerializeField] private bool isGliding = false;
     [SerializeField] private bool isJumping = false;
@@ -267,21 +268,21 @@ public class PlayerMovement : MonoBehaviour
                 animator.SetBool("isGliding", true);
                 // animator.SetBool("isFalling", false);
             }
-            else
+            else if (airTime > fallingThreshold && !isGrounded)
             {
                 //animator.SetBool("isGliding", false);
                 animator.SetBool("isFalling", true);
             }
             UnityEngine.Debug.Log("Falling!");
 
-            if (isGrounded && airTime <= fallingThreshold)
+            if (isGrounded && airTime <= landingThreshold)
             {
                 UnityEngine.Debug.Log("Soft Landing!");
                 animator.SetBool("isFalling", false);
                 animator.SetBool("isGliding", false);
             }
 
-            if (isGrounded && airTime > fallingThreshold)
+            if (isGrounded && airTime > landingThreshold)
             {
                 UnityEngine.Debug.Log("Hard landing!");
                 animator.SetTrigger("Landed");
