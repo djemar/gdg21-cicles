@@ -59,10 +59,15 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnTriggerEnter(Collider collision)
     {
-        if (collision.CompareTag("PowerUpMelee"))
+        if (collision.CompareTag("PowerUpMelee") && !HUD.hasHammer)
         {
             FindObjectOfType<AudioManager>().Play("PowerUp");
-            HUD.pickUpMeleeWeapon();
+            HUD.pickUpMeleeWeapon(collision);
+        }
+        else if (collision.CompareTag("PowerUpShield") && !HUD.hasShield)
+        {
+            FindObjectOfType<AudioManager>().Play("PowerUp");
+            HUD.pickUpShield(collision);
         }
     }
 

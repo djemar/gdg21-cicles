@@ -10,11 +10,14 @@ public class PlayerCombat : MonoBehaviour
     public Transform attackPoint;
     public LayerMask enemyLayers;
     public GameObject MainMenu;
+    public MaterialManager materialManager;
+    public HUDController HUD;
     private bool isAttacking = false;
     public float attackRange = 0.5f;
     public float attackRate = 0.5f;
     private bool isDead = false;
     public bool hasWeapon = false;
+    public bool hasShield = false;
     float nextAttackTime = 0f;
 
     // Update is called once per frame
@@ -100,7 +103,7 @@ public class PlayerCombat : MonoBehaviour
 
     public void TakeDamage()
     {
-        if (!isDead)
+        if (!isDead && !hasShield)
         {
             isDead = true;
             Debug.Log("Player is dead!");
@@ -109,6 +112,13 @@ public class PlayerCombat : MonoBehaviour
             GetComponent<PlayerMovement>().enabled = false;
             MainMenu.SetActive(true);
             //Destroy(gameObject, 3f);
+        }
+        else if (hasShield)
+        {
+            materialManager.RemoveShield();
+            FindObjectOfType<AudioManager>().Play("PowerDown");
+            hasShield = false;
+            HUD.hasShield = false;
         }
     }
 }

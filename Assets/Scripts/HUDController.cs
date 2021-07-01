@@ -22,11 +22,14 @@ public class HUDController : MonoBehaviour
     private Vector2 Left = new Vector2(-1, 0);
     private Vector2 Right = new Vector2(1, 0);
     public PlayerCombat playerCombat;
-    public GameObject MeleeWeapon;
+    public MaterialManager materialManager;
+    private GameObject MeleeWeapon;
+    private GameObject Shield;
     public Vector3 PickPosition;    // x = 0.003419     y = 0.000451    z = 0.000457
     public Vector3 PickRotation;    // x = 82.979       y = -8.463      z = 86.094
     public Transform Hand;
-    private bool hasHammer = false;
+    public bool hasHammer = false;
+    public bool hasShield = false;
 
     // Start is called before the first frame update
     void Start()
@@ -52,19 +55,24 @@ public class HUDController : MonoBehaviour
     public void OnInventory(InputAction.CallbackContext value)
     {
         inputVector = value.ReadValue<Vector2>();
-        if (inputVector.Equals(Up))
+        if (inputVector.Equals(Up)) //1
+        {
+            if (Bubble.activeSelf)
+            {
+                deactivateTopItem();
+                playerCombat.hasShield = true;
+                materialManager.ActivateShield();
+            }
+        }
+        else if (inputVector.Equals(Down)) //2
         {
 
         }
-        else if (inputVector.Equals(Down))
+        else if (inputVector.Equals(Left)) //3
         {
-
+            
         }
-        else if (inputVector.Equals(Left))
-        {
-
-        }
-        else if (inputVector.Equals(Right) && hasHammer && value.started)
+        else if (inputVector.Equals(Right) && hasHammer && value.started) //4
         {
             if (Hammer.activeSelf)
             {
@@ -83,9 +91,10 @@ public class HUDController : MonoBehaviour
         }
     }
 
-    public void pickUpMeleeWeapon()
+    public void pickUpMeleeWeapon(Collider collision)
     {
         hasHammer = true;
+        MeleeWeapon = collision.gameObject;
         MeleeWeapon.tag = "Untagged";
         MeleeWeapon.transform.parent = Hand.transform;
         MeleeWeapon.transform.localPosition = PickPosition;
@@ -93,6 +102,15 @@ public class HUDController : MonoBehaviour
         MeleeWeapon.SetActive(false);
         Debug.Log("Picking object: " + MeleeWeapon.activeSelf);
         activateRightItem();
+    }
+
+    public void pickUpShield(Collider collision)
+    {
+        hasShield = true;
+        Shield = collision.gameObject;
+        Shield.tag = "Untagged";
+        Shield.SetActive(false);
+        activateTopItem();
     }
 
     public void activateTopItem()
