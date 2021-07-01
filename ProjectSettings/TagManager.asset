@@ -6,6 +6,7 @@ TagManager:
   tags:
   - PowerUpMelee
   - PowerUpShield
+  - PowerUpRanged
   layers:
   - Default
   - TransparentFX
