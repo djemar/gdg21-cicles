@@ -14,7 +14,7 @@ public class PlayerCombat : MonoBehaviour
     public HUDController HUD;
     private bool isAttacking = false;
     public float attackRange = 0.5f;
-    public float attackRate = 0.5f;
+    public float attackRate = 1.75f;
     private bool isDead = false;
     public bool hasWeapon = false;
     public bool hasShield = false;
@@ -39,9 +39,10 @@ public class PlayerCombat : MonoBehaviour
     {
         if (isAttacking)
         {
-            if (!isShooting)
+            if (!isShooting && Time.time >= nextAttackTime)
             {
                 StartCoroutine(Attack());
+                nextAttackTime = Time.time + 1f / attackRate;
             }
             else if (Time.time >= nextTimetoFire)
             {
@@ -58,7 +59,7 @@ public class PlayerCombat : MonoBehaviour
         animator.SetTrigger("Attack");
         isAttacking = false;
 
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(attackRate);
     }
 
     private void Shoot()
