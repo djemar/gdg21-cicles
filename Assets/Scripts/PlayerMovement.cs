@@ -1,11 +1,13 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Collections.Generic;
 
 public class PlayerMovement : MonoBehaviour
 {
     // References
     public CharacterController controller;
+    public PlayerCombat playerCombat;
 
     private Animator animator;
     public GameObject MainMenu;
@@ -19,6 +21,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float landingThreshold = 2f;
     [SerializeField] private float fallingThreshold = 0.5f;
     [SerializeField] private bool isGrounded;
+    [SerializeField] private bool hitRocks;
     [SerializeField] private bool isGliding = false;
     [SerializeField] private bool isJumping = false;
     [SerializeField] private int doubleJump;
@@ -41,6 +44,8 @@ public class PlayerMovement : MonoBehaviour
     private bool canMove = true;
     public StaminaUI stamina;
     public HUDController HUD;
+    public ParticleSystem rocks;
+    public List<ParticleCollisionEvent> collisionEvents;
 
     private bool isPaused = false;
 
@@ -50,6 +55,7 @@ public class PlayerMovement : MonoBehaviour
         controller = GetComponent<CharacterController>();
         animator = GetComponentInChildren<Animator>();
         airTime = 0;
+        collisionEvents = new List<ParticleCollisionEvent>();
     }
 
     // Update is called once per frame
@@ -75,6 +81,12 @@ public class PlayerMovement : MonoBehaviour
             FindObjectOfType<AudioManager>().Play("PowerUp");
             HUD.pickUpRangedWeapon(collision);
         }
+    }
+
+    private void OnParticleCollision(GameObject other)
+    {
+        Debug.Log("collison detected");
+        playerCombat.TakeDamage();
     }
 
     void FixedUpdate()
