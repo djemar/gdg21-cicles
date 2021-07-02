@@ -77,7 +77,7 @@ public class HUDController : MonoBehaviour
         {
 
         }
-        else if (inputVector.Equals(Left) && hasBazooka && value.started) //3
+        else if (inputVector.Equals(Left) && hasBazooka && value.started && playerCombat.endMelee) //3
         {
             if (playerCombat.hasWeapon)
             {
@@ -101,7 +101,7 @@ public class HUDController : MonoBehaviour
             }
             
         }
-        else if (inputVector.Equals(Right) && hasHammer && value.started) //4
+        else if (inputVector.Equals(Right) && hasHammer && value.started && !playerCombat.isAttacking) //4
         {
             if(playerCombat.isShooting){
                 playerCombat.isShooting = false;

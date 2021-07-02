@@ -12,7 +12,7 @@ public class PlayerCombat : MonoBehaviour
     public GameObject MainMenu;
     public MaterialManager materialManager;
     public HUDController HUD;
-    private bool isAttacking = false;
+    public bool isAttacking = false;
     public float attackRange = 0.5f;
     public float attackRate = 1.75f;
     private bool isDead = false;
@@ -20,6 +20,7 @@ public class PlayerCombat : MonoBehaviour
     public bool hasShield = false;
     float nextAttackTime = 0f;
     public bool isShooting = false;
+    public bool endMelee = false;
 
     public float fireRate = 10f;
 
@@ -55,7 +56,7 @@ public class PlayerCombat : MonoBehaviour
         //animator.SetLayerWeight(animator.GetLayerIndex("Attack Layer"), 1);
         animator.SetTrigger("Attack");
         isAttacking = false;
-
+        endMelee = false;
         yield return new WaitForSeconds(attackRate);
     }
 
@@ -98,6 +99,12 @@ public class PlayerCombat : MonoBehaviour
         {
             enemy.GetComponent<Enemy>().TakeDamage();
         }
+    }
+
+    private void EndMeleeAttack()
+    {
+        endMelee = true;
+        Debug.Log(endMelee);
     }
 
     public void TakeDamage()
