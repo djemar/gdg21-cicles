@@ -42,6 +42,7 @@ public class Bullet : MonoBehaviour
     }
 
     private void OnTriggerEnter(Collider collider){
+        Debug.Log("Collided with object " + collider.name);
 
         Collider[] colliders = Physics.OverlapSphere(transform.position, blastRadius);
 
@@ -49,8 +50,8 @@ public class Bullet : MonoBehaviour
             Debug.Log("Empty array!");
 
         foreach(Collider nearbyObject in colliders){
-            Target target = nearbyObject.GetComponent<Target>();
-            if(target != null){
+            Enemy enemy = nearbyObject.GetComponent<Enemy>();
+            if(enemy != null){
                 Rigidbody rb = nearbyObject.GetComponent<Rigidbody>();
                 if(rb != null){
                     rb.AddExplosionForce(explosionForce, transform.position, blastRadius);
@@ -61,9 +62,9 @@ public class Bullet : MonoBehaviour
         colliders = Physics.OverlapSphere(transform.position, blastRadius/2);
 
         foreach(Collider nearbyObject in colliders){
-            Target target = nearbyObject.GetComponent<Target>();
-            if(target != null){
-                target.Hit(damage);
+            Enemy enemy = nearbyObject.GetComponent<Enemy>();
+            if(enemy != null){
+                enemy.TakeDamage();
             }
         }
         /*

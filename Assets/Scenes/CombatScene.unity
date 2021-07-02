@@ -1032,7 +1032,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 249822082}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.145, y: 1.078, z: 0.626}
+  m_LocalPosition: {x: 0.145, y: 1.078, z: 0.719}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 399938785}
@@ -1486,7 +1486,7 @@ MonoBehaviour:
   isShooting: 0
   fireRate: 10
   shootPoint: {fileID: 249822083}
-  pfBullet: {fileID: 7714196031590480286, guid: e4a04a4f390d5c740b5a2ba66fa8e32b, type: 3}
+  pfBullet: {fileID: 4718791433123555256, guid: e54237066f34cf14881814b43f0ac0aa, type: 3}
 --- !u!114 &399938788
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1652,7 +1652,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c45de11139c60bf40a35d95af6c5eae1, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c45de11139c60bf40a35d95af6c5eae1, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5494,9 +5494,9 @@ CapsuleCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 2.3260975
-  m_Height: 27.121836
+  m_Height: 22.625107
   m_Direction: 0
-  m_Center: {x: -1.2769834, y: -0.3452189, z: 0.16254747}
+  m_Center: {x: 0.97138244, y: -0.3452189, z: 0.16254747}
 --- !u!54 &1736766687
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -5604,7 +5604,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 14.668, y: -68.692, z: -0.285}
 --- !u!1 &1783048497
 GameObject:
