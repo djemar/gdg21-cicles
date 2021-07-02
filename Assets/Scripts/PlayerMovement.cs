@@ -94,7 +94,7 @@ public class PlayerMovement : MonoBehaviour
         Collider[] colliders = Physics.OverlapSphere(transform.position, groundCheckDistance, groundMask);
         //isGrounded = controller.isGrounded;
         //isFalling = !(Physics.CheckSphere(transform.position, checkDistance, groundMask));
-        onBiscuit = false;
+        if(onBiscuit) onBiscuit = false;
         foreach(Collider c in colliders)
         {
             if (c.CompareTag("Biscuit"))
@@ -128,7 +128,7 @@ public class PlayerMovement : MonoBehaviour
 
         direction = new Vector3(-inputVector.y, 0, inputVector.x).normalized;
 
-        if (isGrounded)
+        if (isGrounded || onBiscuit)
         {
             if (direction.magnitude >= 0.1f && !isRunning)
             {

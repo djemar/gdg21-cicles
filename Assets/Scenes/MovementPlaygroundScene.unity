@@ -1474,9 +1474,6 @@ MonoBehaviour:
   groundMask:
     serializedVersion: 2
     m_Bits: 64
-  biscuitMask:
-    serializedVersion: 2
-    m_Bits: 256
   airTime: 0
   fallingThreshold: 1
   isGrounded: 0
@@ -1562,15 +1559,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 3ddc4a276ef7df64a94451ed24690174, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -5.5895114
+      value: -5.59
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 3ddc4a276ef7df64a94451ed24690174, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 6.36
+      value: 5.45
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 3ddc4a276ef7df64a94451ed24690174, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 39.861324
+      value: 39.08
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 3ddc4a276ef7df64a94451ed24690174, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1606,7 +1603,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 3ddc4a276ef7df64a94451ed24690174, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 3ddc4a276ef7df64a94451ed24690174, type: 3}
       propertyPath: m_TagString
@@ -7776,9 +7773,6 @@ MonoBehaviour:
   groundMask:
     serializedVersion: 2
     m_Bits: 64
-  biscuitMask:
-    serializedVersion: 2
-    m_Bits: 0
   airTime: 0
   fallingThreshold: 1
   isGrounded: 0
