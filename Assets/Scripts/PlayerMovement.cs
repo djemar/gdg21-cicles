@@ -36,7 +36,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float doubleJumpHeight;
     [SerializeField] private float turnSmoothTime = 0.1f;
     [SerializeField] private float turnSmoothVelocity;
-    private Vector3 direction;
+    [SerializeField] private Vector3 direction;
     private Vector2 inputVector;
     private bool isTaunting = false;
     private bool isRunning = false;
@@ -75,11 +75,6 @@ public class PlayerMovement : MonoBehaviour
         {
             FindObjectOfType<AudioManager>().Play("PowerUp");
             HUD.pickUpShield(collision);
-        }
-        else if (collision.CompareTag("PowerUpRanged") && !HUD.hasBazooka)
-        {
-            FindObjectOfType<AudioManager>().Play("PowerUp");
-            HUD.pickUpRangedWeapon(collision);
         }
     }
 
@@ -136,7 +131,6 @@ public class PlayerMovement : MonoBehaviour
                 Idle();
             }
         }
-
 
         if (moveSpeed == runSpeed)
             currentSpeed = Mathf.Lerp(currentSpeed, moveSpeed, 0.1f);
@@ -279,7 +273,10 @@ public class PlayerMovement : MonoBehaviour
     {
         if (airTime > 0 || isGliding)
         {
-            TargetRotation();
+            if (direction.magnitude >= 0.1f)
+            {
+                TargetRotation();
+            }
             if (isGliding && stamina.canGlide)
             {
                 animator.SetBool("isGliding", true);
