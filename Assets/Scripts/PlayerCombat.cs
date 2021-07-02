@@ -26,6 +26,8 @@ public class PlayerCombat : MonoBehaviour
 
     public Transform shootPoint;
 
+    public ParticleSystem shieldEffect;
+
 
     [SerializeField]
     private Transform pfBullet;
@@ -121,6 +123,7 @@ public class PlayerCombat : MonoBehaviour
         }
         else if (hasShield)
         {
+            shieldEffect.Play();
             materialManager.RemoveShield();
             FindObjectOfType<AudioManager>().Play("PowerDown");
             hasShield = false;

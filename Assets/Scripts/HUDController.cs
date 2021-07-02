@@ -40,6 +40,8 @@ public class HUDController : MonoBehaviour
     public bool hasShield = false;
     public bool hasBazooka = false;
 
+    public ParticleSystem shieldEffect;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -68,6 +70,7 @@ public class HUDController : MonoBehaviour
         {
             if (Bubble.activeSelf)
             {
+                shieldEffect.Play();
                 deactivateTopItem();
                 playerCombat.hasShield = true;
                 materialManager.ActivateShield();
