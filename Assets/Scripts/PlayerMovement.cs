@@ -42,6 +42,7 @@ public class PlayerMovement : MonoBehaviour
 
     private bool powerUp = false;
     private bool isPaused = false;
+    private bool onBiscuit = false;
 
 
     void Start()
@@ -90,10 +91,19 @@ public class PlayerMovement : MonoBehaviour
 
     private void Move()
     {
-        isGrounded = Physics.CheckSphere(transform.position, groundCheckDistance, groundMask);
+        Collider[] colliders = Physics.OverlapSphere(transform.position, groundCheckDistance, groundMask);
         //isGrounded = controller.isGrounded;
         //isFalling = !(Physics.CheckSphere(transform.position, checkDistance, groundMask));
-
+        onBiscuit = false;
+        foreach(Collider c in colliders)
+        {
+            if (c.CompareTag("Biscuit"))
+            {
+                onBiscuit = true;
+            }
+        }
+        if (!onBiscuit && colliders.Length > 0) isGrounded = true;
+        else isGrounded = false;
         CheckLand();
         CheckAirTime();
 
@@ -106,7 +116,15 @@ public class PlayerMovement : MonoBehaviour
             doubleJump = 2;
             gravity = Physics2D.gravity.y;
         }
-
+        else if (onBiscuit)
+        {
+            playerVelocity.y = -1f; // small neg value should work better than zero
+            playerVelocity.z = -2f;
+            isGliding = false;
+            stamina.Start();
+            doubleJump = 2;
+            gravity = Physics2D.gravity.y;
+        }
 
         direction = new Vector3(-inputVector.y, 0, inputVector.x).normalized;
 
@@ -259,7 +277,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void CheckAirTime()
     {
-        if (isGrounded || isGliding)
+        if (isGrounded || isGliding || onBiscuit)
         {
             airTime = 0f;
         }
@@ -285,14 +303,14 @@ public class PlayerMovement : MonoBehaviour
             }
             UnityEngine.Debug.Log("Falling!");
 
-            if (isGrounded && airTime <= fallingThreshold)
+            if ((isGrounded || onBiscuit) && airTime <= fallingThreshold)
             {
                 UnityEngine.Debug.Log("Soft Landing!");
                 animator.SetBool("isFalling", false);
                 animator.SetBool("isGliding", false);
             }
 
-            if (isGrounded && airTime > fallingThreshold)
+            if ((isGrounded || onBiscuit) && airTime > fallingThreshold)
             {
                 UnityEngine.Debug.Log("Hard landing!");
                 animator.SetTrigger("Landed");
