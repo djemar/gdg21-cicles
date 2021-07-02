@@ -41,7 +41,7 @@ public class PlayerCombat : MonoBehaviour
                 StartCoroutine(Attack());
                 nextAttackTime = Time.time + 1f / attackRate;
             }
-            else if (Time.time >= nextTimetoFire)
+            else if (isShooting && Time.time >= nextTimetoFire)
             {
                 nextTimetoFire = Time.time + 1f / fireRate;
                 Shoot();
