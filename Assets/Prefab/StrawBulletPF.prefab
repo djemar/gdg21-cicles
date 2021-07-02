@@ -171,9 +171,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4718791433123555256}
-  - component: {fileID: 4876991347165916079}
   - component: {fileID: -3665670338511224908}
   - component: {fileID: -3107733391221858038}
+  - component: {fileID: 8723342103257987028}
   m_Layer: 0
   m_Name: StrawBulletPF
   m_TagString: Untagged
@@ -197,20 +197,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!136 &4876991347165916079
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7349297076055965233}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  m_Radius: 1.7275786
-  m_Height: 4.754359
-  m_Direction: 0
-  m_Center: {x: 0.006546918, y: -0.03538649, z: 0}
 --- !u!114 &-3665670338511224908
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -244,6 +230,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 3
+--- !u!135 &8723342103257987028
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7349297076055965233}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 3.595611
+  m_Center: {x: 0.23906262, y: 0.062518224, z: 0.048936058}
 --- !u!1001 &1794927951350569408
 PrefabInstance:
   m_ObjectHideFlags: 0

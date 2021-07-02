@@ -1484,7 +1484,7 @@ MonoBehaviour:
   hasWeapon: 0
   hasShield: 0
   isShooting: 0
-  fireRate: 10
+  fireRate: 1
   shootPoint: {fileID: 249822083}
   pfBullet: {fileID: 4718791433123555256, guid: e54237066f34cf14881814b43f0ac0aa, type: 3}
 --- !u!114 &399938788

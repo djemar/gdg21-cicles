@@ -152,6 +152,8 @@ public class HUDController : MonoBehaviour
         hasBazooka = true;
         RangedWeapon = collision.gameObject;
         RangedWeapon.tag = "Untagged";
+        Collider coll = RangedWeapon.GetComponent<Collider>();
+        coll.enabled = false;
         /*
             TODO positioning of the weapon
         */
