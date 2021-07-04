@@ -13,6 +13,8 @@ public class PlayerCombat : MonoBehaviour
     public MaterialManager materialManager;
     public HUDController HUD;
     public bool isAttacking = false;
+    public int countMelee = 3;
+    public GameObject hammer;
     public float attackRange = 0.5f;
     public float attackRate = 1.75f;
     public bool isDead = false;
@@ -50,6 +52,12 @@ public class PlayerCombat : MonoBehaviour
                 Shoot();
 
             }
+        }
+        if (countMelee == 0)
+        {
+            hasWeapon = false;
+            HUD.hasHammer = false;
+            Destroy(hammer);
         }
     }
 
@@ -100,28 +108,21 @@ public class PlayerCombat : MonoBehaviour
         foreach (Collider enemy in hitEnemies)
         {
             enemy.GetComponent<Enemy>().TakeDamage();
+            countMelee--;
         }
     }
 
     private void EndMeleeAttack()
     {
         endMelee = true;
-        Debug.Log(endMelee);
     }
 
     public void TakeDamage()
     {
         if (!isDead && !hasShield)
         {
-            //isDead = true;
             Debug.Log("Player is dead!");
-            //animator.SetTrigger("isDead");
             StartCoroutine(Die());
-            
-            //GetComponent<PlayerInput>().enabled = false;
-            //GetComponent<PlayerMovement>().enabled = false;
-            //MainMenu.SetActive(true);
-            //Destroy(gameObject, 3f);
         }
         else if (hasShield)
         {
