@@ -1864,7 +1864,7 @@ MonoBehaviour:
   hasWeapon: 0
   hasShield: 0
   isShooting: 0
-  endMelee: 0
+  endMelee: 1
   fireRate: 10
   shootPoint: {fileID: 249822083}
   shieldEffect: {fileID: 1570388164}

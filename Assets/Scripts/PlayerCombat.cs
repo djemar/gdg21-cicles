@@ -22,7 +22,7 @@ public class PlayerCombat : MonoBehaviour
     public bool hasShield = false;
     float nextAttackTime = 0f;
     public bool isShooting = false;
-    public bool endMelee = false;
+    public bool endMelee = true;
 
     public float fireRate = 10f;
 

@@ -80,6 +80,11 @@ public class PlayerMovement : MonoBehaviour
             FindObjectOfType<AudioManager>().Play("PowerUp");
             HUD.pickUpShield(collision);
         }
+        else if (collision.CompareTag("PowerUpRanged") && !HUD.hasBazooka)
+        {
+            FindObjectOfType<AudioManager>().Play("PowerUp");
+            HUD.pickUpRangedWeapon(collision);
+        }
     }
 
     private void OnParticleCollision(GameObject other)
