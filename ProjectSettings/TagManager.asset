@@ -8,6 +8,7 @@ TagManager:
   - PowerUpShield
   - PowerUpRanged
   - Mikado
+  - GM
   layers:
   - Default
   - TransparentFX
