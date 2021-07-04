@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -56,6 +57,7 @@ public class PlayerMovement : MonoBehaviour
         animator = GetComponentInChildren<Animator>();
         airTime = 0;
         collisionEvents = new List<ParticleCollisionEvent>();
+        Debug.Log("(PM) Respawn pos at " + transform.position);
     }
 
     // Update is called once per frame

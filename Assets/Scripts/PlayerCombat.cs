@@ -15,7 +15,7 @@ public class PlayerCombat : MonoBehaviour
     public bool isAttacking = false;
     public float attackRange = 0.5f;
     public float attackRate = 1.75f;
-    private bool isDead = false;
+    public bool isDead = false;
     public bool hasWeapon = false;
     public bool hasShield = false;
     float nextAttackTime = 0f;
@@ -113,12 +113,14 @@ public class PlayerCombat : MonoBehaviour
     {
         if (!isDead && !hasShield)
         {
-            isDead = true;
+            //isDead = true;
             Debug.Log("Player is dead!");
-            animator.SetTrigger("isDead");
-            GetComponent<PlayerInput>().enabled = false;
-            GetComponent<PlayerMovement>().enabled = false;
-            MainMenu.SetActive(true);
+            //animator.SetTrigger("isDead");
+            StartCoroutine(Die());
+            
+            //GetComponent<PlayerInput>().enabled = false;
+            //GetComponent<PlayerMovement>().enabled = false;
+            //MainMenu.SetActive(true);
             //Destroy(gameObject, 3f);
         }
         else if (hasShield)
@@ -129,5 +131,16 @@ public class PlayerCombat : MonoBehaviour
             hasShield = false;
             HUD.hasShield = false;
         }
+    }
+
+    private IEnumerator Die()
+    {
+        animator.SetTrigger("isDead");
+        MainMenu.SetActive(true);
+        GetComponent<PlayerInput>().enabled = false;
+        GetComponent<PlayerMovement>().enabled = false;
+        GetComponent<CharacterController>().enabled = false;
+        yield return new WaitForSecondsRealtime(3f);
+        isDead = true;
     }
 }
