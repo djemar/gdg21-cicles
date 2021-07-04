@@ -687,6 +687,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controller: {fileID: 399938783}
+  playerCombat: {fileID: 0}
   MainMenu: {fileID: 0}
   groundCheckDistance: 0.08
   checkDistance: 1.4
@@ -697,12 +698,14 @@ MonoBehaviour:
   landingThreshold: 2
   fallingThreshold: 0.4
   isGrounded: 0
+  hitRocks: 0
   isGliding: 0
   isJumping: 0
   doubleJump: 0
   moveSpeed: 0
   walkSpeed: 0.8
   runSpeed: 4
+  jumpSpeed: 3
   glidingSpeed: 4
   playerVelocity: {x: 0, y: 0, z: 0}
   gravity: -9.81
@@ -711,8 +714,10 @@ MonoBehaviour:
   doubleJumpHeight: 2
   turnSmoothTime: 0.1
   turnSmoothVelocity: 5
+  direction: {x: 0, y: 0, z: 0}
   stamina: {fileID: 190792743}
   HUD: {fileID: 0}
+  rocks: {fileID: 0}
 --- !u!143 &399938783
 CharacterController:
   m_ObjectHideFlags: 0
@@ -2978,6 +2983,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controller: {fileID: 2032222538}
+  playerCombat: {fileID: 0}
   MainMenu: {fileID: 0}
   groundCheckDistance: 0.08
   checkDistance: 1.4
@@ -2988,12 +2994,14 @@ MonoBehaviour:
   landingThreshold: 2
   fallingThreshold: 1
   isGrounded: 0
+  hitRocks: 0
   isGliding: 0
   isJumping: 0
   doubleJump: 0
   moveSpeed: 0
   walkSpeed: 0.5
   runSpeed: 1
+  jumpSpeed: 0
   glidingSpeed: 0
   playerVelocity: {x: 0, y: 0, z: 0}
   gravity: -9.81
@@ -3002,8 +3010,10 @@ MonoBehaviour:
   doubleJumpHeight: 0
   turnSmoothTime: 0.1
   turnSmoothVelocity: 5
+  direction: {x: 0, y: 0, z: 0}
   stamina: {fileID: 0}
   HUD: {fileID: 0}
+  rocks: {fileID: 0}
 --- !u!143 &2032222538
 CharacterController:
   m_ObjectHideFlags: 0
@@ -3131,6 +3141,26 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: b8e60671-0369-43f9-aed9-7059b889ce8b
     m_ActionName: Player/Glide[/Keyboard/ctrl,/XInputControllerWindows/rightShoulder]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 2c1b5bac-6e59-4526-8967-d555961248c9
+    m_ActionName: Player/Inventory[/Keyboard/1,/Keyboard/2,/Keyboard/3,/Keyboard/4]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 17d73f0e-ce3e-479c-b3fc-574aba5addd6
+    m_ActionName: Player/Attack[/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 179210cc-4ac2-4e9f-904e-a776267e4903
+    m_ActionName: MainMenu/Up[/Keyboard/upArrow]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 2926585a-a114-43ea-8fbd-b5b4ff96d513
+    m_ActionName: MainMenu/Down[/Keyboard/downArrow]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: b59befb4-2312-4b17-89fa-19c6d0527bab
+    m_ActionName: MainMenu/Select[/Keyboard/enter]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player

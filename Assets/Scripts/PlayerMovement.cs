@@ -29,6 +29,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float moveSpeed;
     [SerializeField] private float walkSpeed;
     [SerializeField] private float runSpeed;
+    [SerializeField] private float jumpSpeed;
     [SerializeField] private float glidingSpeed;
     [SerializeField] private Vector3 playerVelocity;
     [SerializeField] private float gravity;
@@ -113,6 +114,7 @@ public class PlayerMovement : MonoBehaviour
             playerVelocity.y = -1f; // small neg value should work better than zero
             playerVelocity.z = 0f;
             isGliding = false;
+            isJumping = false;
             stamina.Start();
             doubleJump = 2;
             gravity = Physics2D.gravity.y;
@@ -139,6 +141,14 @@ public class PlayerMovement : MonoBehaviour
             {
                 Idle();
             }
+        }
+        if (direction.magnitude >= 0.1f && isJumping && !isRunning)
+        {
+            moveSpeed = jumpSpeed;
+        }
+        else if (direction.magnitude >= 0.1f && isJumping && isRunning)
+        {
+            moveSpeed = 1.5f * jumpSpeed;
         }
 
         if (moveSpeed == runSpeed)
@@ -188,6 +198,8 @@ public class PlayerMovement : MonoBehaviour
         if (doubleJump > 0 && canMove)
         {
             if (playerVelocity.y < 0f) playerVelocity.y = 0f;
+
+            isJumping = true;
 
             if (doubleJump == 2)
             {
