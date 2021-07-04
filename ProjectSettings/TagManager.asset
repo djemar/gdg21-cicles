@@ -7,8 +7,9 @@ TagManager:
   - PowerUpMelee
   - PowerUpShield
   - PowerUpRanged
-  - Mikado
   - GM
+  - Mikado
+  - BubblePlatform
   layers:
   - Default
   - TransparentFX

@@ -39,6 +39,8 @@ public class HUDController : MonoBehaviour
     public bool hasHammer = false;
     public bool hasShield = false;
     public bool hasBazooka = false;
+    public GameObject bubblePlatform;
+
 
     public ParticleSystem shieldEffect;
 
@@ -78,7 +80,11 @@ public class HUDController : MonoBehaviour
         }
         else if (inputVector.Equals(Down)) //2
         {
-
+            if (value.started)
+            {
+                var pos = GameObject.Find("Amy").transform.position;
+                Instantiate(bubblePlatform, new Vector3(pos.x, pos.y + 1, pos.z + 1.5f), new Quaternion());
+            }
         }
         else if (inputVector.Equals(Left) && hasBazooka && value.started && playerCombat.endMelee) //3
         {
@@ -102,11 +108,12 @@ public class HUDController : MonoBehaviour
                 RangedWeapon.SetActive(false);
                 Debug.Log("Deactivating bazooka: " + RangedWeapon.activeSelf);
             }
-            
+
         }
         else if (inputVector.Equals(Right) && hasHammer && value.started && !playerCombat.isAttacking) //4
         {
-            if(playerCombat.isShooting){
+            if (playerCombat.isShooting)
+            {
                 playerCombat.isShooting = false;
                 RangedWeapon.SetActive(false);
                 activateLeftItem();
@@ -175,7 +182,7 @@ public class HUDController : MonoBehaviour
         Bubble.SetActive(true);
 
     }
-    
+
     public void deactivateTopItem()
     {
 
@@ -228,7 +235,7 @@ public class HUDController : MonoBehaviour
     {
 
         RightItem.GetComponent<Image>().color = new Color(1f, 0.5607843f, 0.8747101f, 0.3921569f);
-        Hammer.SetActive(false); 
+        Hammer.SetActive(false);
 
     }
 

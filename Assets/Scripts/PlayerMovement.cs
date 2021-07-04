@@ -86,6 +86,11 @@ public class PlayerMovement : MonoBehaviour
             FindObjectOfType<AudioManager>().Play("PowerUp");
             HUD.pickUpRangedWeapon(collision);
         }
+        else if (collision.CompareTag("BubblePlatform"))
+        {
+            Debug.Log("bubble");
+            playerVelocity.y += 12f;
+        }
     }
 
     private void OnParticleCollision(GameObject other)
