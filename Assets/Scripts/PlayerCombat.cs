@@ -128,17 +128,22 @@ public class PlayerCombat : MonoBehaviour
     {
         if (!isDead && !hasShield)
         {
-            Debug.Log("Player is dead!");
             StartCoroutine(Die());
         }
         else if (hasShield)
         {
-            shieldEffect.Play();
-            materialManager.RemoveShield();
-            FindObjectOfType<AudioManager>().Play("PowerDown");
-            hasShield = false;
-            HUD.hasShield = false;
+            StartCoroutine(Invincibility());
         }
+    }
+
+    private IEnumerator Invincibility()
+    {
+        shieldEffect.Play();
+        materialManager.RemoveShield();
+        FindObjectOfType<AudioManager>().Play("PowerDown");
+        yield return new WaitForSecondsRealtime(1f);
+        HUD.hasShield = false;
+        hasShield = false;
     }
 
     private IEnumerator Die()
