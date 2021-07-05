@@ -20,6 +20,7 @@ public class HUDController : MonoBehaviour
     public GameObject UnactiveDance;
     public GameObject UnactiveBazooka;
     public GameObject UnactiveHammer;
+    public GameObject Count;
     private Vector2 inputVector;
     private Vector2 Up = new Vector2(0, 1);
     private Vector2 Down = new Vector2(0, -1);
@@ -63,6 +64,7 @@ public class HUDController : MonoBehaviour
         Dance.SetActive(false);
         Hammer.SetActive(false);
         Bazooka.SetActive(false);
+        Count.SetActive(false);
         UnactiveBubble.SetActive(false);
         UnactiveDance.SetActive(false);
         UnactiveHammer.SetActive(false);
@@ -260,6 +262,7 @@ public class HUDController : MonoBehaviour
         //RightItem.GetComponent<Image>().color = new Color(1f, 0.5607843f, 0.8747101f, 1f);
         UnactiveHammer.SetActive(false);
         Hammer.SetActive(true);
+        Count.SetActive(true);
 
     }
 
@@ -267,6 +270,7 @@ public class HUDController : MonoBehaviour
     {
 
         //RightItem.GetComponent<Image>().color = new Color(1f, 0.5607843f, 0.8747101f, 0.3921569f);
+        Count.SetActive(false);
         Hammer.SetActive(false);
         UnactiveHammer.SetActive(true);
 
