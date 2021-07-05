@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.InputSystem;
 
 public class PlayerCombat : MonoBehaviour
@@ -35,6 +36,12 @@ public class PlayerCombat : MonoBehaviour
     private Transform pfBullet;
 
     private float nextTimetoFire = 0;
+
+    private void Awake()
+    {
+        MainMenu.GetComponentInChildren<Text>().text = "PAUSE";
+        MainMenu.GetComponentInChildren<Text>().color = new Color(0f, 0f, 0f);
+    }
 
     // Update is called once per frame
     void FixedUpdate()
@@ -137,6 +144,8 @@ public class PlayerCombat : MonoBehaviour
     private IEnumerator Die()
     {
         animator.SetTrigger("isDead");
+        MainMenu.GetComponentInChildren<Text>().text = "YOU DIED";
+        MainMenu.GetComponentInChildren<Text>().color = new Color(0.96f, 0.51f, 0.87f);
         MainMenu.SetActive(true);
         GetComponent<PlayerInput>().enabled = false;
         GetComponent<PlayerMovement>().enabled = false;

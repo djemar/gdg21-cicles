@@ -41,6 +41,4 @@ public class MenuController : MonoBehaviour
         currentVolume = volume;
     }
 
-    
-
 }
