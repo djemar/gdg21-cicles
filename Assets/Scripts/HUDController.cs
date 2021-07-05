@@ -25,8 +25,9 @@ public class HUDController : MonoBehaviour
     public MaterialManager materialManager;
     private GameObject MeleeWeapon;
     private GameObject Shield;
-
+    private GameObject Trampoline;
     private GameObject RangedWeapon;
+
     public Vector3 PickPosition;    // x = 0.003419     y = 0.000451    z = 0.000457
     public Vector3 PickRotation;    // x = 82.979       y = -8.463      z = 86.094
 
@@ -39,6 +40,7 @@ public class HUDController : MonoBehaviour
     public bool hasHammer = false;
     public bool hasShield = false;
     public bool hasBazooka = false;
+    public bool hasBubble = false;
     public GameObject bubblePlatform;
 
 
@@ -68,7 +70,7 @@ public class HUDController : MonoBehaviour
     public void OnInventory(InputAction.CallbackContext value)
     {
         inputVector = value.ReadValue<Vector2>();
-        if (inputVector.Equals(Up)) //1
+        if (inputVector.Equals(Up) && hasShield && value.started) //1
         {
             if (Bubble.activeSelf)
             {
@@ -78,12 +80,18 @@ public class HUDController : MonoBehaviour
                 materialManager.ActivateShield();
             }
         }
-        else if (inputVector.Equals(Down)) //2
+        else if (inputVector.Equals(Down) && hasBubble && value.started) //2
         {
-            if (value.started)
+            if (Dance.activeSelf)
             {
-                var pos = GameObject.Find("Amy").transform.position;
-                Instantiate(bubblePlatform, new Vector3(pos.x, pos.y + 1, pos.z + 1.5f), new Quaternion());
+                deactivateBottomItem();
+                var position = transform.position;
+                var direction = transform.forward;
+                var rotation = transform.rotation;
+                float distance = 1.5f;
+                Vector3 up = new Vector3(0, 1, 0);
+                Vector3 spawnPos = position + direction*distance + up;
+                Instantiate(bubblePlatform, spawnPos, rotation);
             }
         }
         else if (inputVector.Equals(Left) && hasBazooka && value.started && playerCombat.endMelee) //3
@@ -155,6 +163,15 @@ public class HUDController : MonoBehaviour
         Shield.tag = "Untagged";
         Shield.SetActive(false);
         activateTopItem();
+    }
+
+    public void pickUpBubble(Collider collision)
+    {
+        hasBubble = true;
+        Trampoline = collision.gameObject;
+        Trampoline.tag = "Untagged";
+        Trampoline.SetActive(false);
+        activateBottomItem();
     }
 
     public void pickUpRangedWeapon(Collider collision)

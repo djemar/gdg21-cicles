@@ -10,6 +10,7 @@ TagManager:
   - GM
   - Mikado
   - BubblePlatform
+  - PowerUpBubble
   layers:
   - Default
   - TransparentFX
