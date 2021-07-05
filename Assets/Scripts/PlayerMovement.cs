@@ -117,8 +117,8 @@ public class PlayerMovement : MonoBehaviour
         Collider[] colliders = Physics.OverlapSphere(transform.position, groundCheckDistance, groundMask);
         //isGrounded = controller.isGrounded;
         //isFalling = !(Physics.CheckSphere(transform.position, checkDistance, groundMask));
-        if(onBiscuit) onBiscuit = false;
-        foreach(Collider c in colliders)
+        if (onBiscuit) onBiscuit = false;
+        foreach (Collider c in colliders)
         {
             if (c.CompareTag("Biscuit"))
             {
@@ -142,6 +142,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else if (onBiscuit)
         {
+            isGrounded = true;
             playerVelocity.y = -1f; // small neg value should work better than zero
             playerVelocity.z = -2f;
             isGliding = false;
@@ -339,14 +340,14 @@ public class PlayerMovement : MonoBehaviour
             }
             UnityEngine.Debug.Log("Falling!");
 
-            if ((isGrounded || onBiscuit) && airTime <= fallingThreshold)
+            if ((isGrounded || onBiscuit) && airTime <= landingThreshold)
             {
                 UnityEngine.Debug.Log("Soft Landing!");
                 animator.SetBool("isFalling", false);
                 animator.SetBool("isGliding", false);
             }
 
-            if ((isGrounded || onBiscuit) && airTime > fallingThreshold)
+            if ((isGrounded || onBiscuit) && airTime > landingThreshold)
             {
                 UnityEngine.Debug.Log("Hard landing!");
                 animator.SetTrigger("Landed");
