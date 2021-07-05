@@ -16,6 +16,10 @@ public class HUDController : MonoBehaviour
     public GameObject Dance;
     public GameObject Bazooka;
     public GameObject Hammer;
+    public GameObject UnactiveBubble;
+    public GameObject UnactiveDance;
+    public GameObject UnactiveBazooka;
+    public GameObject UnactiveHammer;
     private Vector2 inputVector;
     private Vector2 Up = new Vector2(0, 1);
     private Vector2 Down = new Vector2(0, -1);
@@ -59,6 +63,10 @@ public class HUDController : MonoBehaviour
         Dance.SetActive(false);
         Hammer.SetActive(false);
         Bazooka.SetActive(false);
+        UnactiveBubble.SetActive(false);
+        UnactiveDance.SetActive(false);
+        UnactiveHammer.SetActive(false);
+        UnactiveBazooka.SetActive(false);
 
     }
 
@@ -195,7 +203,8 @@ public class HUDController : MonoBehaviour
     public void activateTopItem()
     {
 
-        TopItem.GetComponent<Image>().color = new Color(1f, 0.5607843f, 0.8747101f, 1f);
+        //TopItem.GetComponent<Image>().color = new Color(1f, 0.5607843f, 0.8747101f, 1f);
+        UnactiveBubble.SetActive(false);
         Bubble.SetActive(true);
 
     }
@@ -203,15 +212,17 @@ public class HUDController : MonoBehaviour
     public void deactivateTopItem()
     {
 
-        TopItem.GetComponent<Image>().color = new Color(1f, 0.5607843f, 0.8747101f, 0.3921569f);
-        Bubble.SetActive(false); //oppure Bubble.GetComponent<Image>().color = new Color(0f, 0f, 0f, 0.3921569f); se vogliamo che la prima volta non ci sia e le altre sia trasparente
+        //TopItem.GetComponent<Image>().color = new Color(1f, 0.5607843f, 0.8747101f, 0.3921569f);
+        Bubble.SetActive(false);
+        UnactiveBubble.SetActive(true);
 
     }
 
     public void activateBottomItem()
     {
 
-        BottomItem.GetComponent<Image>().color = new Color(1f, 0.5607843f, 0.8747101f, 1f);
+        //BottomItem.GetComponent<Image>().color = new Color(1f, 0.5607843f, 0.8747101f, 1f);
+        UnactiveDance.SetActive(false);
         Dance.SetActive(true);
 
     }
@@ -219,15 +230,17 @@ public class HUDController : MonoBehaviour
     public void deactivateBottomItem()
     {
 
-        BottomItem.GetComponent<Image>().color = new Color(1f, 0.5607843f, 0.8747101f, 0.3921569f);
+        //BottomItem.GetComponent<Image>().color = new Color(1f, 0.5607843f, 0.8747101f, 0.3921569f);
         Dance.SetActive(false);
+        UnactiveDance.SetActive(true);
 
     }
 
     public void activateLeftItem()
     {
 
-        LeftItem.GetComponent<Image>().color = new Color(1f, 0.5607843f, 0.8747101f, 1f);
+        //LeftItem.GetComponent<Image>().color = new Color(1f, 0.5607843f, 0.8747101f, 1f);
+        UnactiveBazooka.SetActive(false);
         Bazooka.SetActive(true);
 
     }
@@ -235,15 +248,17 @@ public class HUDController : MonoBehaviour
     public void deactivateLeftItem()
     {
 
-        LeftItem.GetComponent<Image>().color = new Color(1f, 0.5607843f, 0.8747101f, 0.3921569f);
+        //LeftItem.GetComponent<Image>().color = new Color(1f, 0.5607843f, 0.8747101f, 0.3921569f);
         Bazooka.SetActive(false);
+        UnactiveBazooka.SetActive(true);
 
     }
 
     public void activateRightItem()
     {
 
-        RightItem.GetComponent<Image>().color = new Color(1f, 0.5607843f, 0.8747101f, 1f);
+        //RightItem.GetComponent<Image>().color = new Color(1f, 0.5607843f, 0.8747101f, 1f);
+        UnactiveHammer.SetActive(false);
         Hammer.SetActive(true);
 
     }
@@ -251,8 +266,9 @@ public class HUDController : MonoBehaviour
     public void deactivateRightItem()
     {
 
-        RightItem.GetComponent<Image>().color = new Color(1f, 0.5607843f, 0.8747101f, 0.3921569f);
+        //RightItem.GetComponent<Image>().color = new Color(1f, 0.5607843f, 0.8747101f, 0.3921569f);
         Hammer.SetActive(false);
+        UnactiveHammer.SetActive(true);
 
     }
 
