@@ -82,7 +82,7 @@ public class HUDController : MonoBehaviour
         inputVector = value.ReadValue<Vector2>();
         if (inputVector.Equals(Up) && hasShield && value.started) //1
         {
-            if (Bubble.activeSelf)
+            if (Dance.activeSelf)
             {
                 shieldEffect.Play();
                 deactivateTopItem();
@@ -92,7 +92,7 @@ public class HUDController : MonoBehaviour
         }
         else if (inputVector.Equals(Down) && hasBubble && value.started) //2
         {
-            if (Dance.activeSelf)
+            if (Bubble.activeSelf)
             {
                 deactivateBottomItem();
                 var position = transform.position;
@@ -202,7 +202,7 @@ public class HUDController : MonoBehaviour
         activateLeftItem();
     }
 
-    public void activateTopItem()
+    public void activateBottomItem()
     {
 
         //TopItem.GetComponent<Image>().color = new Color(1f, 0.5607843f, 0.8747101f, 1f);
@@ -211,7 +211,7 @@ public class HUDController : MonoBehaviour
 
     }
 
-    public void deactivateTopItem()
+    public void deactivateBottomItem()
     {
 
         //TopItem.GetComponent<Image>().color = new Color(1f, 0.5607843f, 0.8747101f, 0.3921569f);
@@ -220,7 +220,7 @@ public class HUDController : MonoBehaviour
 
     }
 
-    public void activateBottomItem()
+    public void activateTopItem()
     {
 
         //BottomItem.GetComponent<Image>().color = new Color(1f, 0.5607843f, 0.8747101f, 1f);
@@ -229,7 +229,7 @@ public class HUDController : MonoBehaviour
 
     }
 
-    public void deactivateBottomItem()
+    public void deactivateTopItem()
     {
 
         //BottomItem.GetComponent<Image>().color = new Color(1f, 0.5607843f, 0.8747101f, 0.3921569f);
