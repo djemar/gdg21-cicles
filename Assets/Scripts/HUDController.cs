@@ -104,14 +104,8 @@ public class HUDController : MonoBehaviour
                 Instantiate(bubblePlatform, spawnPos, rotation);
             }
         }
-        else if (inputVector.Equals(Left) && hasBazooka && value.started && playerCombat.endMelee) //3
+        else if (inputVector.Equals(Left) && value.started) //3
         {
-            if (playerCombat.hasWeapon)
-            {
-                playerCombat.hasWeapon = false;
-                MeleeWeapon.SetActive(false);
-                activateRightItem();
-            }
             if (Bazooka.activeSelf)
             {
                 deactivateLeftItem();
