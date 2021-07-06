@@ -11,6 +11,7 @@ public class PlayerCombat : MonoBehaviour
     public Transform attackPoint;
     public LayerMask enemyLayers;
     public GameObject MainMenu;
+    public GameObject Count;
     public MaterialManager materialManager;
     public HUDController HUD;
     public bool isAttacking = false;
@@ -116,6 +117,7 @@ public class PlayerCombat : MonoBehaviour
         {
             enemy.GetComponent<Enemy>().TakeDamage();
             countMelee--;
+            Count.GetComponent<Text>().text = countMelee.ToString();
         }
     }
 

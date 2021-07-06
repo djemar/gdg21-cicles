@@ -8560,6 +8560,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   MainMenu: {fileID: 191577668}
+  Count: {fileID: 2083041356}
   materialManager: {fileID: 399938788}
   HUD: {fileID: 399938784}
   isAttacking: 0
