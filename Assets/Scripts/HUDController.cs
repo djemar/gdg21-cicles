@@ -243,7 +243,6 @@ public class HUDController : MonoBehaviour
         //RightItem.GetComponent<Image>().color = new Color(1f, 0.5607843f, 0.8747101f, 1f);
         UnactiveHammer.SetActive(false);
         Hammer.SetActive(true);
-        Count.SetActive(true);
 
     }
 
@@ -251,7 +250,6 @@ public class HUDController : MonoBehaviour
     {
 
         //RightItem.GetComponent<Image>().color = new Color(1f, 0.5607843f, 0.8747101f, 0.3921569f);
-        Count.SetActive(false);
         Hammer.SetActive(false);
         UnactiveHammer.SetActive(true);
 

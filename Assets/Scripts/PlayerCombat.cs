@@ -11,11 +11,9 @@ public class PlayerCombat : MonoBehaviour
     public Transform attackPoint;
     public LayerMask enemyLayers;
     public GameObject MainMenu;
-    public GameObject Count;
     public MaterialManager materialManager;
     public HUDController HUD;
     public bool isAttacking = false;
-    public int countMelee = 3;
     public GameObject hammer;
     public float attackRange = 0.5f;
     public float attackRate = 1.75f;
@@ -60,12 +58,6 @@ public class PlayerCombat : MonoBehaviour
                 Shoot();
 
             }
-        }
-        if (countMelee == 0)
-        {
-            hasWeapon = false;
-            HUD.hasHammer = false;
-            Destroy(hammer);
         }
     }
 
@@ -116,8 +108,6 @@ public class PlayerCombat : MonoBehaviour
         foreach (Collider enemy in hitEnemies)
         {
             enemy.GetComponent<Enemy>().TakeDamage();
-            countMelee--;
-            Count.GetComponent<Text>().text = countMelee.ToString();
         }
     }
 
