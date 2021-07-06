@@ -74,7 +74,6 @@ public class PlayerMovement : MonoBehaviour
         {
             FindObjectOfType<AudioManager>().Play("PowerUp");
             HUD.pickUpMeleeWeapon(collision);
-            playerCombat.countMelee = 3;
             playerCombat.hammer = collision.gameObject;
         }
         else if (collision.CompareTag("PowerUpShield") && !HUD.hasShield)
@@ -82,10 +81,10 @@ public class PlayerMovement : MonoBehaviour
             FindObjectOfType<AudioManager>().Play("PowerUp");
             HUD.pickUpShield(collision);
         }
-        else if (collision.CompareTag("PowerUpRanged") && !HUD.hasBazooka)
+        else if (collision.CompareTag("PowerUpResidual") && !HUD.hasResidual)
         {
             FindObjectOfType<AudioManager>().Play("PowerUp");
-            HUD.pickUpRangedWeapon(collision);
+            HUD.pickUpResidual(collision);
         }
         else if (collision.CompareTag("PowerUpBubble") && !HUD.hasBubble)
         {

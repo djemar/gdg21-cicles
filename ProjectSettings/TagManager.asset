@@ -7,11 +7,12 @@ TagManager:
   - PowerUpMelee
   - Biscuit
   - PowerUpShield
-  - PowerUpRanged
   - GM
   - Mikado
   - BubblePlatform
   - PowerUpBubble
+  - PowerUpResidual
+  - Checkpoint
   layers:
   - Default
   - TransparentFX

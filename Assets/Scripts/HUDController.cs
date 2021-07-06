@@ -14,11 +14,11 @@ public class HUDController : MonoBehaviour
     public static GameObject RightItem;
     public GameObject Bubble;
     public GameObject Dance;
-    public GameObject Bazooka;
+    public GameObject Residual;
     public GameObject Hammer;
     public GameObject UnactiveBubble;
     public GameObject UnactiveDance;
-    public GameObject UnactiveBazooka;
+    public GameObject UnactiveResidual;
     public GameObject UnactiveHammer;
     public GameObject Count;
     private Vector2 inputVector;
@@ -31,29 +31,29 @@ public class HUDController : MonoBehaviour
     private GameObject MeleeWeapon;
     private GameObject Shield;
     private GameObject Trampoline;
-    private GameObject RangedWeapon;
+    private GameObject ResidualImage;
 
     public Vector3 PickPosition;    // x = 0.003419     y = 0.000451    z = 0.000457
     public Vector3 PickRotation;    // x = 82.979       y = -8.463      z = 86.094
 
-    public Vector3 bazookaPos;      // x= 0.147         y = 1.07500005  z = 0.26699999
-
-    public Vector3 bazookaRot;
     public Transform Hand;
 
     public Transform WeaponPosition;
     public bool hasHammer = false;
     public bool hasShield = false;
-    public bool hasBazooka = false;
+    public bool hasResidual = false;
     public bool hasBubble = false;
     public GameObject bubblePlatform;
+    public GameObject resImage;
 
 
     public ParticleSystem shieldEffect;
+    private GameMaster gm;
 
     // Start is called before the first frame update
     void Start()
     {
+        gm = GameObject.FindGameObjectWithTag("GM").GetComponent<GameMaster>();
 
         TopItem = GameObject.Find("TopItem");
         BottomItem = GameObject.Find("BottomItem");
@@ -63,12 +63,12 @@ public class HUDController : MonoBehaviour
         Bubble.SetActive(false);
         Dance.SetActive(false);
         Hammer.SetActive(false);
-        Bazooka.SetActive(false);
+        Residual.SetActive(false);
         Count.SetActive(false);
         UnactiveBubble.SetActive(false);
         UnactiveDance.SetActive(false);
         UnactiveHammer.SetActive(false);
-        UnactiveBazooka.SetActive(false);
+        UnactiveResidual.SetActive(false);
 
     }
 
@@ -104,32 +104,28 @@ public class HUDController : MonoBehaviour
                 Instantiate(bubblePlatform, spawnPos, rotation);
             }
         }
-        else if (inputVector.Equals(Left) && value.started) //3
+        else if (inputVector.Equals(Left) && value.started && hasResidual) //3
         {
-            if (Bazooka.activeSelf)
+            if (Residual.activeSelf)
             {
+                var obj = GameObject.FindGameObjectWithTag("Checkpoint");
+                if (obj != null)
+                {
+                    Destroy(obj);
+                }
                 deactivateLeftItem();
-                playerCombat.isShooting = true;
-                RangedWeapon.SetActive(true);
-                Debug.Log("Activating bazooka: " + RangedWeapon.activeSelf);
-            }
-            else if (!Bazooka.activeSelf)
-            {
-                activateLeftItem();
-                playerCombat.isShooting = false;
-                RangedWeapon.SetActive(false);
-                Debug.Log("Deactivating bazooka: " + RangedWeapon.activeSelf);
+                var position = transform.position;
+                var rotation = transform.rotation;
+                var image = Instantiate(resImage, position, rotation);
+                image.tag = "Checkpoint";
+                gm.lastCheckPointPos = position;
+                DontDestroyOnLoad(image);
+                hasResidual = false;
             }
 
         }
         else if (inputVector.Equals(Right) && hasHammer && value.started && !playerCombat.isAttacking) //4
         {
-            if (playerCombat.isShooting)
-            {
-                playerCombat.isShooting = false;
-                RangedWeapon.SetActive(false);
-                activateLeftItem();
-            }
             if (Hammer.activeSelf)
             {
                 deactivateRightItem();
@@ -178,21 +174,12 @@ public class HUDController : MonoBehaviour
         activateBottomItem();
     }
 
-    public void pickUpRangedWeapon(Collider collision)
+    public void pickUpResidual(Collider collision)
     {
-        hasBazooka = true;
-        RangedWeapon = collision.gameObject;
-        RangedWeapon.tag = "Untagged";
-        Collider coll = RangedWeapon.GetComponent<Collider>();
-        coll.enabled = false;
-        /*
-            TODO positioning of the weapon
-        */
-        RangedWeapon.transform.parent = WeaponPosition.transform;
-        RangedWeapon.transform.localPosition = bazookaPos;
-        RangedWeapon.transform.localEulerAngles = bazookaRot;
-        RangedWeapon.SetActive(false);
-        Debug.Log("Picking Object: " + RangedWeapon.activeSelf);
+        hasResidual = true;
+        ResidualImage = collision.gameObject;
+        ResidualImage.tag = "Untagged";
+        ResidualImage.SetActive(false);
         activateLeftItem();
     }
 
@@ -236,8 +223,8 @@ public class HUDController : MonoBehaviour
     {
 
         //LeftItem.GetComponent<Image>().color = new Color(1f, 0.5607843f, 0.8747101f, 1f);
-        UnactiveBazooka.SetActive(false);
-        Bazooka.SetActive(true);
+        UnactiveResidual.SetActive(false);
+        Residual.SetActive(true);
 
     }
 
@@ -245,8 +232,8 @@ public class HUDController : MonoBehaviour
     {
 
         //LeftItem.GetComponent<Image>().color = new Color(1f, 0.5607843f, 0.8747101f, 0.3921569f);
-        Bazooka.SetActive(false);
-        UnactiveBazooka.SetActive(true);
+        Residual.SetActive(false);
+        UnactiveResidual.SetActive(true);
 
     }
 
@@ -256,7 +243,6 @@ public class HUDController : MonoBehaviour
         //RightItem.GetComponent<Image>().color = new Color(1f, 0.5607843f, 0.8747101f, 1f);
         UnactiveHammer.SetActive(false);
         Hammer.SetActive(true);
-        Count.SetActive(true);
 
     }
 
@@ -264,7 +250,6 @@ public class HUDController : MonoBehaviour
     {
 
         //RightItem.GetComponent<Image>().color = new Color(1f, 0.5607843f, 0.8747101f, 0.3921569f);
-        Count.SetActive(false);
         Hammer.SetActive(false);
         UnactiveHammer.SetActive(true);
 
