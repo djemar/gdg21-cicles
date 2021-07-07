@@ -21,20 +21,8 @@ public class PlayerCombat : MonoBehaviour
     public bool hasWeapon = false;
     public bool hasShield = false;
     float nextAttackTime = 0f;
-    public bool isShooting = false;
-    public bool endMelee = true;
-
-    public float fireRate = 10f;
-
-    public Transform shootPoint;
 
     public ParticleSystem shieldEffect;
-
-
-    [SerializeField]
-    private Transform pfBullet;
-
-    private float nextTimetoFire = 0;
 
     private void Awake()
     {
@@ -47,16 +35,10 @@ public class PlayerCombat : MonoBehaviour
     {
         if (isAttacking)
         {
-            if (!isShooting && Time.time >= nextAttackTime)
+            if (Time.time >= nextAttackTime)
             {
                 StartCoroutine(Attack());
                 nextAttackTime = Time.time + 1f / attackRate;
-            }
-            else if (isShooting && Time.time >= nextTimetoFire)
-            {
-                nextTimetoFire = Time.time + 1f / fireRate;
-                Shoot();
-
             }
         }
     }
@@ -66,29 +48,12 @@ public class PlayerCombat : MonoBehaviour
         //animator.SetLayerWeight(animator.GetLayerIndex("Attack Layer"), 1);
         animator.SetTrigger("Attack");
         isAttacking = false;
-        endMelee = false;
         yield return new WaitForSeconds(attackRate);
-    }
-
-    private void Shoot()
-    {
-        // RaycastHit hit;
-        // isAttacking = false;
-
-        // if(Physics.Raycast(player.transform.position, player.transform.forward, out hit, shootRange)){
-        //     Debug.Log(hit.transform.name);
-        // }
-        Debug.Log("Trying to shoot");
-        isAttacking = false;
-
-        Vector3 shootDir = transform.forward;
-        Transform bulletTransform = Instantiate(pfBullet, shootPoint.transform.position, Quaternion.identity);
-        bulletTransform.GetComponent<Bullet>().Setup(shootDir);
     }
 
     public void OnAttack(InputAction.CallbackContext value)
     {
-        if (value.started && !isAttacking && (hasWeapon || isShooting))
+        if (value.started && !isAttacking && hasWeapon)
         {
             isAttacking = true;
         }
@@ -116,11 +81,6 @@ public class PlayerCombat : MonoBehaviour
         }
 
         if(hitEnemies.Length != 0) FindObjectOfType<AudioManager>().Play("Hit");
-    }
-
-    private void EndMeleeAttack()
-    {
-        endMelee = true;
     }
 
     public void TakeDamage()
