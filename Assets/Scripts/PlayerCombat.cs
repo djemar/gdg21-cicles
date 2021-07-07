@@ -101,6 +101,11 @@ public class PlayerCombat : MonoBehaviour
         Gizmos.DrawWireSphere(attackPoint.position, attackRange);
     }
 
+    private void Swing()
+    {
+        FindObjectOfType<AudioManager>().Play("Swing");
+    }
+
     private void MeleeAttack()
     {
         Collider[] hitEnemies = Physics.OverlapSphere(attackPoint.position, attackRange, enemyLayers);
@@ -109,6 +114,8 @@ public class PlayerCombat : MonoBehaviour
         {
             enemy.GetComponent<Enemy>().TakeDamage();
         }
+
+        if(hitEnemies.Length != 0) FindObjectOfType<AudioManager>().Play("Hit");
     }
 
     private void EndMeleeAttack()
@@ -140,6 +147,7 @@ public class PlayerCombat : MonoBehaviour
 
     private IEnumerator Die()
     {
+        FindObjectOfType<AudioManager>().Play("Die");
         animator.SetTrigger("isDead");
         MainMenu.GetComponentInChildren<Text>().text = "YOU DIED";
         MainMenu.GetComponentInChildren<Text>().color = new Color(0.96f, 0.51f, 0.87f);

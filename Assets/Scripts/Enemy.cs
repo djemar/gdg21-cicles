@@ -76,12 +76,6 @@ public class Enemy : MonoBehaviour
         alreadyAttacked = false;
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
     public void TakeDamage()
     {
         if (!isDead)
@@ -128,5 +122,10 @@ public class Enemy : MonoBehaviour
         {
             p.GetComponent<PlayerCombat>().TakeDamage();
         }
+    }
+
+    private void Squish()
+    {
+        FindObjectOfType<AudioManager>().Play("Squish");
     }
 }

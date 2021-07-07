@@ -93,7 +93,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else if (collision.CompareTag("BubblePlatform"))
         {
-            Debug.Log("bubble");
+            FindObjectOfType<AudioManager>().Play("Boing");
             playerVelocity.y = 12f;
             Destroy(collision.gameObject);
         }
@@ -238,6 +238,7 @@ public class PlayerMovement : MonoBehaviour
             else
             {
                 animator.SetTrigger("DoubleJump");
+                FindObjectOfType<AudioManager>().Play("DoubleJump");
                 playerVelocity.y = Mathf.Sqrt(doubleJumpHeight * -2.0f * gravity);
             }
             doubleJump--;
@@ -380,4 +381,13 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    private void BlowGum()
+    {
+        FindObjectOfType<AudioManager>().Play("Blow");
+    }
+
+    private void PopGum()
+    {
+        FindObjectOfType<AudioManager>().Play("Pop");
+    }
 }

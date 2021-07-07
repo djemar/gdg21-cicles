@@ -20,7 +20,6 @@ public class HUDController : MonoBehaviour
     public GameObject UnactiveDance;
     public GameObject UnactiveResidual;
     public GameObject UnactiveHammer;
-    public GameObject Count;
     private Vector2 inputVector;
     private Vector2 Up = new Vector2(0, 1);
     private Vector2 Down = new Vector2(0, -1);
@@ -64,7 +63,6 @@ public class HUDController : MonoBehaviour
         Dance.SetActive(false);
         Hammer.SetActive(false);
         Residual.SetActive(false);
-        Count.SetActive(false);
         UnactiveBubble.SetActive(false);
         UnactiveDance.SetActive(false);
         UnactiveHammer.SetActive(false);
@@ -84,6 +82,7 @@ public class HUDController : MonoBehaviour
         {
             if (Dance.activeSelf)
             {
+                FindObjectOfType<AudioManager>().Play("ApplyShield");
                 shieldEffect.Play();
                 deactivateTopItem();
                 playerCombat.hasShield = true;
@@ -108,6 +107,7 @@ public class HUDController : MonoBehaviour
         {
             if (Residual.activeSelf)
             {
+                FindObjectOfType<AudioManager>().Play("Checkpoint");
                 var obj = GameObject.FindGameObjectWithTag("Checkpoint");
                 if (obj != null)
                 {
