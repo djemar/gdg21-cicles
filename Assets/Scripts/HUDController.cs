@@ -49,6 +49,8 @@ public class HUDController : MonoBehaviour
     public ParticleSystem shieldEffect;
     private GameMaster gm;
 
+    private Animator bubbleAnim;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -68,6 +70,7 @@ public class HUDController : MonoBehaviour
         UnactiveHammer.SetActive(false);
         UnactiveResidual.SetActive(false);
 
+        bubbleAnim = bubblePlatform.GetComponent<Animator>();
     }
 
     private void FixedUpdate()
@@ -99,8 +102,10 @@ public class HUDController : MonoBehaviour
                 var rotation = transform.rotation;
                 float distance = 1.5f;
                 Vector3 up = new Vector3(0, 1, 0);
-                Vector3 spawnPos = position + direction*distance + up;
-                Instantiate(bubblePlatform, spawnPos, rotation);
+                Vector3 spawnPos = position + direction * distance + up;
+                var obj = Instantiate(bubblePlatform, spawnPos, rotation);
+                obj.name = "BubblePlatform";
+                //bubbleAnim.Play("Inflate");
             }
         }
         else if (inputVector.Equals(Left) && value.started && hasResidual) //3

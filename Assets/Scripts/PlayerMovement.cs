@@ -52,6 +52,8 @@ public class PlayerMovement : MonoBehaviour
     private bool isPaused = false;
     private bool onBiscuit = false;
 
+    private GameObject bubblePlatform;
+
 
     void Start()
     {
@@ -93,9 +95,11 @@ public class PlayerMovement : MonoBehaviour
         }
         else if (collision.CompareTag("BubblePlatform"))
         {
+            bubblePlatform = GameObject.Find("BubblePlatform");
+            bubblePlatform.GetComponent<Animator>().SetTrigger("bubbleJump");
             FindObjectOfType<AudioManager>().Play("Boing");
             playerVelocity.y = 12f;
-            Destroy(collision.gameObject);
+            //Destroy(collision.gameObject);
         }
     }
 
@@ -364,6 +368,8 @@ public class PlayerMovement : MonoBehaviour
         canMove = enable == 0;
 
     }
+
+
     public void OnMenu()
     {
         if (!isPaused)
