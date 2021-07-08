@@ -341,7 +341,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void CheckAirTime()
     {
-        if (isGrounded || isGliding)
+        if (isGrounded || isGliding || onBiscuit)
         {
             airTime = 0f;
         }
@@ -370,14 +370,14 @@ public class PlayerMovement : MonoBehaviour
             }
             UnityEngine.Debug.Log("Falling!");
 
-            if ((isGrounded) && airTime <= landingThreshold)
+            if ((isGrounded || onBiscuit) && airTime <= landingThreshold)
             {
                 UnityEngine.Debug.Log("Soft Landing!");
                 animator.SetBool("isFalling", false);
                 animator.SetBool("isGliding", false);
             }
 
-            if ((isGrounded) && airTime > landingThreshold)
+            if ((isGrounded || onBiscuit) && airTime > landingThreshold)
             {
                 UnityEngine.Debug.Log("Hard landing!");
                 animator.SetTrigger("Landed");
