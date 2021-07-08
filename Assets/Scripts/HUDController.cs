@@ -81,7 +81,7 @@ public class HUDController : MonoBehaviour
     public void OnInventory(InputAction.CallbackContext value)
     {
         inputVector = value.ReadValue<Vector2>();
-        if (inputVector.Equals(Up) && hasShield && value.started) //1
+        if (inputVector.Equals(Up) && hasShield && value.started && !playerCombat.hasShield) //1
         {
             if (Dance.activeSelf)
             {
