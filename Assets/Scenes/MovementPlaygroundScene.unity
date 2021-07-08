@@ -67726,6 +67726,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 180
       objectReference: {fileID: 0}
+    - target: {fileID: -1439730007547781893, guid: 0e3c34e153e185e429ed5055d71fb069, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 0afd6e20338cc40749016c5b957cfa69, type: 2}
     - target: {fileID: 919132149155446097, guid: 0e3c34e153e185e429ed5055d71fb069, type: 3}
       propertyPath: m_Name
       value: mikado (66)
