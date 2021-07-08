@@ -51,7 +51,6 @@ public class PlayerMovement : MonoBehaviour
     public List<ParticleCollisionEvent> collisionEvents;
 
     private bool isPaused = false;
-    private bool onBiscuit = false;
 
     private GameObject bubblePlatform;
     private System.Random r;
@@ -103,6 +102,27 @@ public class PlayerMovement : MonoBehaviour
             playerVelocity.y = 12f;
             //Destroy(collision.gameObject);
         }
+        else if (collision.CompareTag("Biscuit"))
+        {
+            transform.parent = collision.gameObject.transform;
+            isGrounded = true;
+        }
+        else if (collision.CompareTag("MikadoCarpet"))
+        {
+            StartCoroutine(gameObject.GetComponent<PlayerCombat>().Die());
+        }
+        else if (collision.CompareTag("Mikado"))
+        {
+            gameObject.GetComponent<PlayerCombat>().TakeDamage();
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Biscuit"))
+        {
+            transform.parent = null;
+        }
     }
 
     private void OnParticleCollision(GameObject other)
@@ -119,19 +139,9 @@ public class PlayerMovement : MonoBehaviour
 
     private void Move()
     {
-        Collider[] colliders = Physics.OverlapSphere(transform.position, groundCheckDistance, groundMask);
+        isGrounded = Physics.CheckSphere(transform.position, groundCheckDistance, groundMask);
         //isGrounded = controller.isGrounded;
         //isFalling = !(Physics.CheckSphere(transform.position, checkDistance, groundMask));
-        if (onBiscuit) onBiscuit = false;
-        foreach (Collider c in colliders)
-        {
-            if (c.CompareTag("Biscuit"))
-            {
-                onBiscuit = true;
-            }
-        }
-        if (!onBiscuit && colliders.Length > 0) isGrounded = true;
-        else isGrounded = false;
         CheckLand();
         CheckAirTime();
 
@@ -145,20 +155,10 @@ public class PlayerMovement : MonoBehaviour
             doubleJump = 2;
             gravity = Physics2D.gravity.y;
         }
-        else if (onBiscuit)
-        {
-            isGrounded = true;
-            playerVelocity.y = -1f; // small neg value should work better than zero
-            playerVelocity.z = -2f;
-            isGliding = false;
-            stamina.Start();
-            doubleJump = 2;
-            gravity = Physics2D.gravity.y;
-        }
 
         direction = new Vector3(-inputVector.y, 0, inputVector.x).normalized;
 
-        if (isGrounded || onBiscuit)
+        if (isGrounded)
         {
             if (direction.magnitude >= 0.1f && !isRunning)
             {
@@ -318,7 +318,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void CheckAirTime()
     {
-        if (isGrounded || isGliding || onBiscuit)
+        if (isGrounded || isGliding)
         {
             airTime = 0f;
         }
@@ -347,14 +347,14 @@ public class PlayerMovement : MonoBehaviour
             }
             UnityEngine.Debug.Log("Falling!");
 
-            if ((isGrounded || onBiscuit) && airTime <= landingThreshold)
+            if ((isGrounded) && airTime <= landingThreshold)
             {
                 UnityEngine.Debug.Log("Soft Landing!");
                 animator.SetBool("isFalling", false);
                 animator.SetBool("isGliding", false);
             }
 
-            if ((isGrounded || onBiscuit) && airTime > landingThreshold)
+            if ((isGrounded) && airTime > landingThreshold)
             {
                 UnityEngine.Debug.Log("Hard landing!");
                 animator.SetTrigger("Landed");

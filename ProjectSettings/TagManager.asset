@@ -13,6 +13,7 @@ TagManager:
   - PowerUpBubble
   - PowerUpResidual
   - Checkpoint
+  - MikadoCarpet
   layers:
   - Default
   - TransparentFX

@@ -5,16 +5,20 @@ using UnityEngine;
 public class FallingMikado : MonoBehaviour
 {
     public Rigidbody rb;
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))
+        {
             rb.isKinematic = false;
+            StartCoroutine(DestroyMikado());
+        }
+    }
+
+    private IEnumerator DestroyMikado()
+    {
+        yield return new WaitForSecondsRealtime(3f);
+        Destroy(gameObject);
     }
 
     private void OnCollisionEnter(Collision collision)

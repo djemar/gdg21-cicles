@@ -7,6 +7,9 @@ public class Mikado : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Player"))
-            collision.gameObject.GetComponent<PlayerCombat>().TakeDamage();
+        {
+            Debug.Log("DEAD ON MIKADO");
+            collision.gameObject.GetComponent<PlayerCombat>().isDead = true;
+        }
     }
 }

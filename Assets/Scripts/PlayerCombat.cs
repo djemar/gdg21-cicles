@@ -105,7 +105,7 @@ public class PlayerCombat : MonoBehaviour
         hasShield = false;
     }
 
-    private IEnumerator Die()
+    public IEnumerator Die()
     {
         FindObjectOfType<AudioManager>().Play("Die");
         animator.SetTrigger("isDead");
