@@ -175,11 +175,11 @@ public class PlayerMovement : MonoBehaviour
                 Idle();
             }
         }
-        if (direction.magnitude >= 0.1f && isJumping && !isRunning)
+        if (direction.magnitude >= 0.1f && isJumping && !isRunning && isGrounded)
         {
             moveSpeed = jumpSpeed;
         }
-        else if (direction.magnitude >= 0.1f && isJumping && isRunning)
+        else if (direction.magnitude >= 0.1f && isJumping && isRunning && isGrounded)
         {
             moveSpeed = 1.5f * jumpSpeed;
         }
