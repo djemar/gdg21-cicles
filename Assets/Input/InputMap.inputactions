@@ -30,22 +30,6 @@
                     "interactions": ""
                 },
                 {
-                    "name": "Action",
-                    "type": "Button",
-                    "id": "f45dafda-56ba-4a4d-a863-2f10e7905a4e",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": ""
-                },
-                {
-                    "name": "Taunt",
-                    "type": "Button",
-                    "id": "569991b9-1c3d-4af3-8c0c-0fcf36e55283",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": ""
-                },
-                {
                     "name": "Glide",
                     "type": "Button",
                     "id": "b8e60671-0369-43f9-aed9-7059b889ce8b",
@@ -204,61 +188,6 @@
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "dpad",
-                    "id": "9e9bedcb-c1cf-4861-b2be-8f3c89c30f73",
-                    "path": "2DVector(mode=1)",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Move",
-                    "isComposite": true,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "up",
-                    "id": "0ca9c95d-2135-4fa6-9f56-48e4b18fa58b",
-                    "path": "<Gamepad>/dpad/up",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "PlayerControlScheme",
-                    "action": "Move",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "down",
-                    "id": "cfb34c98-0044-4da5-9fad-c4a43b016fea",
-                    "path": "<Gamepad>/dpad/down",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "PlayerControlScheme",
-                    "action": "Move",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "left",
-                    "id": "4d88fe5e-e5ef-413d-9fbc-3ef8a2e91529",
-                    "path": "<Gamepad>/dpad/left",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "PlayerControlScheme",
-                    "action": "Move",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "right",
-                    "id": "ccf09e89-18c4-446a-9e5b-cb641453e5e5",
-                    "path": "<Gamepad>/dpad/right",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "PlayerControlScheme",
-                    "action": "Move",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
                     "name": "",
                     "id": "8f55620a-b34b-4954-8f5a-c2cac5280150",
                     "path": "<Keyboard>/leftShift",
@@ -277,50 +206,6 @@
                     "processors": "",
                     "groups": "PlayerControlScheme",
                     "action": "Run",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "8882acf0-f738-4632-9e52-8df06c42baa7",
-                    "path": "<Keyboard>/e",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "PlayerControlScheme",
-                    "action": "Action",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "2f92b1d7-2c8e-49c2-81a8-2dcb1fdd7130",
-                    "path": "<Gamepad>/buttonEast",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "PlayerControlScheme",
-                    "action": "Action",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "6ea25753-78b5-4e64-a64b-0667153b576b",
-                    "path": "<Keyboard>/f",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "PlayerControlScheme",
-                    "action": "Taunt",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "d1bd88d4-beba-49ac-abed-ac8e690bb362",
-                    "path": "<Gamepad>/buttonWest",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "PlayerControlScheme",
-                    "action": "Taunt",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
