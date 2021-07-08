@@ -140,7 +140,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Move()
     {
-        isGrounded = Physics.CheckSphere(transform.position, groundCheckDistance, groundMask);
+        var colliders = Physics.OverlapSphere(transform.position, groundCheckDistance, groundMask);
         //isGrounded = controller.isGrounded;
         //isFalling = !(Physics.CheckSphere(transform.position, checkDistance, groundMask));
         if (onBiscuit) onBiscuit = false;
