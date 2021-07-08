@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections.Generic;
+using System;
 using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
@@ -53,7 +54,7 @@ public class PlayerMovement : MonoBehaviour
     private bool onBiscuit = false;
 
     private GameObject bubblePlatform;
-
+    private System.Random r;
 
     void Start()
     {
@@ -62,6 +63,7 @@ public class PlayerMovement : MonoBehaviour
         airTime = 0;
         collisionEvents = new List<ParticleCollisionEvent>();
         Debug.Log("(PM) Respawn pos at " + transform.position);
+        r = new System.Random();
     }
 
     // Update is called once per frame
@@ -241,8 +243,9 @@ public class PlayerMovement : MonoBehaviour
             }
             else
             {
+                var rand = r.Next(0, 10);
                 animator.SetTrigger("DoubleJump");
-                FindObjectOfType<AudioManager>().Play("DoubleJump");
+                if(rand > 4) FindObjectOfType<AudioManager>().Play("DoubleJump");
                 playerVelocity.y = Mathf.Sqrt(doubleJumpHeight * -2.0f * gravity);
             }
             doubleJump--;
