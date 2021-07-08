@@ -51,6 +51,7 @@ public class PlayerMovement : MonoBehaviour
     public List<ParticleCollisionEvent> collisionEvents;
 
     private bool isPaused = false;
+    public bool onBiscuit = false;
 
     private GameObject bubblePlatform;
     private System.Random r;
@@ -142,6 +143,16 @@ public class PlayerMovement : MonoBehaviour
         isGrounded = Physics.CheckSphere(transform.position, groundCheckDistance, groundMask);
         //isGrounded = controller.isGrounded;
         //isFalling = !(Physics.CheckSphere(transform.position, checkDistance, groundMask));
+        if (onBiscuit) onBiscuit = false;
+        foreach (Collider c in colliders)
+        {
+            if (c.CompareTag("Biscuit"))
+            {
+                onBiscuit = true;
+            }
+        }
+        if (!onBiscuit && colliders.Length > 0) { isGrounded = true; }
+        else isGrounded = false;
         CheckLand();
         CheckAirTime();
 
@@ -151,6 +162,17 @@ public class PlayerMovement : MonoBehaviour
             playerVelocity.z = 0f;
             isGliding = false;
             isJumping = false;
+            stamina.Start();
+            doubleJump = 2;
+            gravity = Physics2D.gravity.y;
+        }
+        else if (onBiscuit && playerVelocity.y < 0)
+        {
+            isGrounded = true;
+            if (!isJumping) playerVelocity.y = -1f; // small neg value should work better than zero
+            if (!isJumping) playerVelocity.z = -2f;
+            isJumping = false;
+            isGliding = false;
             stamina.Start();
             doubleJump = 2;
             gravity = Physics2D.gravity.y;
@@ -233,6 +255,7 @@ public class PlayerMovement : MonoBehaviour
         if (doubleJump > 0 && canMove)
         {
             if (playerVelocity.y < 0f) playerVelocity.y = 0f;
+            if (playerVelocity.z < 0f) playerVelocity.z = 0f;
 
             isJumping = true;
 

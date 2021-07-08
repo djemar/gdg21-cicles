@@ -14695,6 +14695,7 @@ MonoBehaviour:
   stamina: {fileID: 190792743}
   HUD: {fileID: 399938784}
   rocks: {fileID: 120085730}
+  onBiscuit: 0
 --- !u!143 &399938783
 CharacterController:
   m_ObjectHideFlags: 0
@@ -48028,6 +48029,20 @@ MonoBehaviour:
   x: 0
   y: 0
   z: 2
+--- !u!64 &1703728631
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1703728628}
+  m_Material: {fileID: 13400000, guid: c94172bdbfac54181be33cb6945651df, type: 2}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -7387706064836869012, guid: 3ddc4a276ef7df64a94451ed24690174, type: 3}
 --- !u!54 &1703728634
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -48044,20 +48059,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!136 &1703728635
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1703728628}
-  m_Material: {fileID: 13400000, guid: c94172bdbfac54181be33cb6945651df, type: 2}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  m_Radius: 0.009650872
-  m_Height: 0.027221551
-  m_Direction: 0
-  m_Center: {x: 0.000007818669, y: -0.00006830612, z: -0.000043575426}
 --- !u!1 &1707378354 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: a1e8152419038f3478f1a442924294db, type: 3}
