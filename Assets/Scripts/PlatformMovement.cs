@@ -15,6 +15,7 @@ public class PlatformMovement : MonoBehaviour
     private bool right;
     public bool ascending;
     public bool horizontal;
+    public float speed;
 
     void Start()
     {
@@ -46,7 +47,7 @@ public class PlatformMovement : MonoBehaviour
             if (!rising && !descending) if (ascending) rising = true; else descending = true;
             if (rising)
             {
-                transform.position = Vector3.MoveTowards(transform.position, new Vector3(transform.position.x, endPosition, transform.position.z), 3 * Time.deltaTime);
+                transform.position = Vector3.MoveTowards(transform.position, new Vector3(transform.position.x, endPosition, transform.position.z), speed * Time.deltaTime);
                 if (transform.position.y >= endPosition)
                 {
                     rising = false;
@@ -55,7 +56,7 @@ public class PlatformMovement : MonoBehaviour
             }
             if (descending)
             {
-                transform.position = Vector3.MoveTowards(transform.position, new Vector3(transform.position.x, startPosition, transform.position.z), 3 * Time.deltaTime);
+                transform.position = Vector3.MoveTowards(transform.position, new Vector3(transform.position.x, startPosition, transform.position.z), speed * Time.deltaTime);
                 if (transform.position.y <= startPosition)
                 {
                     rising = true;
@@ -68,7 +69,7 @@ public class PlatformMovement : MonoBehaviour
             if (!left && !right) right = true;
             if(right)
             {
-                transform.position = Vector3.MoveTowards(transform.position, new Vector3(transform.position.x, transform.position.y, endPosition), 3 * Time.deltaTime);
+                transform.position = Vector3.MoveTowards(transform.position, new Vector3(transform.position.x, transform.position.y, endPosition), speed * Time.deltaTime);
                 if (transform.position.z >= endPosition)
                 {
                     right = false;
@@ -77,7 +78,7 @@ public class PlatformMovement : MonoBehaviour
             }
             if(left)
             {
-                transform.position = Vector3.MoveTowards(transform.position, new Vector3(transform.position.x, transform.position.y, startPosition), 3 * Time.deltaTime);
+                transform.position = Vector3.MoveTowards(transform.position, new Vector3(transform.position.x, transform.position.y, startPosition), speed * Time.deltaTime);
                 if (transform.position.z <= startPosition)
                 {
                     right = true;
