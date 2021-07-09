@@ -19,7 +19,7 @@ public class MainMenuController : MonoBehaviour
         PlayButton = GameObject.Find("Play");
         QuitButton = GameObject.Find("Quit");
 
-        PlayButton.GetComponent<Image>().color = new Color(0.96f, 0.96f, 0.96f, 1f);
+        PlayButton.GetComponent<Image>().color = new Color(1f, 0.764706f, 0.882353f, 1f);
 
     }
 
@@ -39,7 +39,7 @@ public class MainMenuController : MonoBehaviour
     {
         //UnityEngine.Debug.Log("Up pressed");
         selected = 0;
-        PlayButton.GetComponent<Image>().color = new Color(0.96f, 0.96f, 0.96f, 1f);
+        PlayButton.GetComponent<Image>().color = new Color(1f, 0.764706f, 0.882353f, 1f);
         QuitButton.GetComponent<Image>().color = new Color(1f, 1f, 1f, 1f);
     }
 
@@ -47,7 +47,7 @@ public class MainMenuController : MonoBehaviour
     {
         //UnityEngine.Debug.Log("Down pressed");
         selected = 1;
-        QuitButton.GetComponent<Image>().color = new Color(0.96f, 0.96f, 0.96f, 1f);
+        QuitButton.GetComponent<Image>().color = new Color(1f, 0.764706f, 0.882353f, 1f);
         PlayButton.GetComponent<Image>().color = new Color(1f, 1f, 1f, 1f);
     }
 
