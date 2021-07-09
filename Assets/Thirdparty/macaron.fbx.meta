@@ -3,7 +3,17 @@ guid: c688f9bdc6fa9a640be417e9545e4206
 ModelImporter:
   serializedVersion: 20200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Macaron - Dark Pink
+    second: {fileID: 2100000, guid: e5fa3dee94b694e468ab8109992bb83b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: White
+    second: {fileID: -8848810374240701247, guid: 8cfd50be8c89a304db7c2e7f6283bb9c, type: 3}
   materials:
     materialImportMode: 2
     materialName: 0

@@ -110,6 +110,7 @@ public class HUDController : MonoBehaviour
                 var obj = Instantiate(bubblePlatform, spawnPos, rotation);
                 obj.name = "BubblePlatform";
                 playerCombat.hasBubble = true;
+                hasBubble = false;
                 //bubbleAnim.Play("Inflate");
             }
         }
@@ -161,6 +162,7 @@ public class HUDController : MonoBehaviour
         MeleeWeapon.transform.parent = Hand.transform;
         MeleeWeapon.transform.localPosition = PickPosition;
         MeleeWeapon.transform.localEulerAngles = PickRotation;
+        MeleeWeapon.layer = 3;
         MeleeWeapon.SetActive(false);
         Debug.Log("Picking object: " + MeleeWeapon.activeSelf);
         activateRightItem();
