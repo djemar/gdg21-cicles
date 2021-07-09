@@ -26,7 +26,7 @@ public class MainMenuController : MonoBehaviour
     public void Play()
     {
         //UnityEngine.Debug.Log("Play");
-        UnityEngine.SceneManagement.SceneManager.LoadScene("PlaygroundScene");
+        UnityEngine.SceneManagement.SceneManager.LoadScene("MovementPlaygroundScene");
     }
 
     public void Quit()
