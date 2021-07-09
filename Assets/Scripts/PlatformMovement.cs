@@ -90,7 +90,6 @@ public class PlatformMovement : MonoBehaviour
 
     private void OnTriggerEnter(Collider collision)
     {
-        Debug.Log("Pisciati addosso");
         if (collision.gameObject.CompareTag("Player"))
         {
             collision.transform.parent = transform;

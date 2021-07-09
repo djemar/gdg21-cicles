@@ -49,7 +49,7 @@ public class PlayerMovement : MonoBehaviour
     public ParticleSystem rocks;
     public List<ParticleCollisionEvent> collisionEvents;
 
-    private bool isPaused = false;
+    //private bool isPaused = false;
     public bool onBiscuit = false;
 
     private GameObject bubblePlatform;

@@ -117,10 +117,12 @@ public class Enemy : MonoBehaviour
     private void EnemyMeleeAttack()
     {
         Collider[] hitPlayer = Physics.OverlapSphere(attackPoint.position, attackRange, whatIsPlayer);
-
-        foreach (var p in hitPlayer)
+        if (hitPlayer.Length > 0)
         {
-            p.GetComponent<PlayerCombat>().TakeDamage();
+            foreach (var p in hitPlayer)
+            {
+                if(p != null) p.GetComponent<PlayerCombat>().TakeDamage();
+            }
         }
     }
 
