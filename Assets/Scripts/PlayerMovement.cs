@@ -399,6 +399,7 @@ public class PlayerMovement : MonoBehaviour
             PauseMenu.SetActive(false);
         }
         */
+        PauseMenu.SetActive(true);
         Application.Quit();
     }
 
