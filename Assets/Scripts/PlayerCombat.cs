@@ -101,7 +101,6 @@ public class PlayerCombat : MonoBehaviour
         materialManager.RemoveShield();
         FindObjectOfType<AudioManager>().Play("PowerDown");
         yield return new WaitForSecondsRealtime(1f);
-        HUD.hasShield = false;
         hasShield = false;
     }
 
