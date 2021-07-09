@@ -79,7 +79,7 @@ public class PlayerMovement : MonoBehaviour
             HUD.pickUpMeleeWeapon(collision);
             playerCombat.hammer = collision.gameObject;
         }
-        else if (collision.CompareTag("PowerUpShield") && (!HUD.hasShield || playerCombat.hasShield))
+        else if (collision.CompareTag("PowerUpShield") && !HUD.Dance.activeSelf)
         {
             FindObjectOfType<AudioManager>().Play("PowerUp");
             HUD.pickUpShield(collision);
