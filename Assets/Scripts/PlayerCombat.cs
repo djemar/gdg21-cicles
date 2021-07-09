@@ -20,6 +20,7 @@ public class PlayerCombat : MonoBehaviour
     public bool isDead = false;
     public bool hasWeapon = false;
     public bool hasShield = false;
+    public bool hasBubble = false;
     float nextAttackTime = 0f;
 
     public ParticleSystem shieldEffect;

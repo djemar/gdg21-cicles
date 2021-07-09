@@ -109,6 +109,7 @@ public class HUDController : MonoBehaviour
                 Vector3 spawnPos = position + direction * distance + up;
                 var obj = Instantiate(bubblePlatform, spawnPos, rotation);
                 obj.name = "BubblePlatform";
+                playerCombat.hasBubble = true;
                 //bubbleAnim.Play("Inflate");
             }
         }

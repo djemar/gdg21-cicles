@@ -89,7 +89,7 @@ public class PlayerMovement : MonoBehaviour
             FindObjectOfType<AudioManager>().Play("PowerUp");
             HUD.pickUpResidual(collision);
         }
-        else if (collision.CompareTag("PowerUpBubble") && !HUD.hasBubble)
+        else if (collision.CompareTag("PowerUpBubble") && (!HUD.hasBubble || playerCombat.hasBubble))
         {
             FindObjectOfType<AudioManager>().Play("PowerUp");
             HUD.pickUpBubble(collision);
