@@ -10,6 +10,7 @@ public class MainMenuController : MonoBehaviour
     private int selected; //0 = play, 1 = quit
     private GameObject PlayButton;
     private GameObject QuitButton;
+    public GameObject Loading;
 
     void Start()
     {
@@ -26,6 +27,7 @@ public class MainMenuController : MonoBehaviour
     public void Play()
     {
         //UnityEngine.Debug.Log("Play");
+        Loading.SetActive(true);
         UnityEngine.SceneManagement.SceneManager.LoadScene("MovementPlaygroundScene");
     }
 
