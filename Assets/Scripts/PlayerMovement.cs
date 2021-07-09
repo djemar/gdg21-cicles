@@ -41,7 +41,6 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float turnSmoothVelocity;
     [SerializeField] private Vector3 direction;
     private Vector2 inputVector;
-    private bool isTaunting = false;
     private bool isRunning = false;
     private float currentSpeed = 0f;
     private bool canMove = true;
@@ -281,11 +280,6 @@ public class PlayerMovement : MonoBehaviour
         playerVelocity.y = glidingGravity;
     }
 
-    private void Taunt()
-    {
-        animator.SetTrigger("Taunt");
-    }
-
     private void TargetRotation()
     {
         /* player facing movement direction */
@@ -331,12 +325,6 @@ public class PlayerMovement : MonoBehaviour
             animator.SetBool("isGliding", false);
         }
 
-    }
-
-    public void OnTaunt(InputAction.CallbackContext value)
-    {
-        UnityEngine.Debug.Log("Taunted");
-        isTaunting = true;
     }
 
     private void CheckAirTime()
