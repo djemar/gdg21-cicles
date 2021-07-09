@@ -12,7 +12,7 @@ public class PlayerMovement : MonoBehaviour
     public PlayerCombat playerCombat;
 
     private Animator animator;
-    public GameObject MainMenu;
+    public GameObject PauseMenu;
 
     // Variables
     // SerializeField lets you declare a private var and having it accessible inside Unity inspector
@@ -386,19 +386,20 @@ public class PlayerMovement : MonoBehaviour
 
     public void OnMenu()
     {
-        if (!isPaused)
+        /*if (!isPaused)
         {
             isPaused = true;
             Time.timeScale = 0;
-            MainMenu.SetActive(true);
-
+            PauseMenu.SetActive(true);
         }
         else
         {
             isPaused = false;
             Time.timeScale = 1;
-            MainMenu.SetActive(false);
+            PauseMenu.SetActive(false);
         }
+        */
+        Application.Quit();
     }
 
     private void BlowGum()
