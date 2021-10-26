@@ -5,9 +5,10 @@ Authors: Giovanni Blangiardi, Enrico D'Oro, Diego Marino, Simone Restivo, Nicola
 <img alt="Unity" src="https://img.shields.io/badge/unity%20-%23000000.svg?&style=for-the-badge&logo=unity&logoColor=white"/>
 <img alt="Blender" src="https://img.shields.io/badge/blender%20-%23F5792A.svg?&style=for-the-badge&logo=blender&logoColor=white"/>
 
-## TODO
+## Release
 
-- [ ] Teaser trailer (**deadline: 19-05-2021**)
+It includes a pitch document, a teaser trailer, and the prototype.
+- [Google Drive Folder](https://drive.google.com/drive/folders/1Xnhk6BVQ4ppbF9VFc1ztyEs1xrsRU_cA?usp=sharing)
 
 ## Docs
 
